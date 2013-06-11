@@ -9,9 +9,5 @@
     "ejs":       "0.4.3",
     "express":   "2.4.6",
     "faceplate": "0.6.x"
-  },
-
-  "engines": {
-    "node": "0.6.x"
   }
 }
