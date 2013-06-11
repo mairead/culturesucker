@@ -10,14 +10,14 @@ var app = express.createServer(
   express.logger(),
   express.static(__dirname + '/public'),
   express.bodyParser(),
-  express.cookieParser(),
+  express.cookieParser()//,
   // set this to a secret value to encrypt session cookies
-  express.session({ secret: process.env.SESSION_SECRET || 'secret123' }),
-  require('faceplate').middleware({
-    app_id: process.env.FACEBOOK_APP_ID,
-    secret: process.env.FACEBOOK_SECRET,
-    scope:  'user_likes,user_photos,user_photo_video_tags'
-  })
+  // express.session({ secret: process.env.SESSION_SECRET || 'secret123' }),
+  // require('faceplate').middleware({
+  //   app_id: process.env.FACEBOOK_APP_ID,
+  //   secret: process.env.FACEBOOK_SECRET,
+  //   scope:  'user_likes,user_photos,user_photo_video_tags'
+  // })
 );
 
 // listen to the PORT given to us in the environment
@@ -60,16 +60,12 @@ function render_page(req, res) {
 }
 
 function render_form_page(req, res) {
-  req.facebook.app(function(err, app) {
-    req.facebook.me(function(user) {
+ 
       res.render('keyword_form.ejs', {
         layout:    false,
-        req:       req,
-        app:       app,
-        user:      user
+        req:       req
       });
-    });
-  });
+ 
 }
 
 function handle_facebook_request(req, res) {
@@ -193,8 +189,8 @@ function display_keyword_form(req, res) {
 
 }
 
-app.get('/', handle_facebook_request);
-app.post('/', handle_facebook_request);
+// app.get('/', handle_facebook_request);
+// app.post('/', handle_facebook_request);
 
 app.get('/culturequery', display_keyword_form);
 
