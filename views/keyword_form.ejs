@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
+
+    <title>Culturegrid query form</title>
+    <link rel="stylesheet" href="stylesheets/screen.css" media="Screen" type="text/css" />
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" type="text/css" />
+
+    <!--[if IEMobile]>
+    <link rel="stylesheet" href="mobile.css" media="screen" type="text/css"  />
+    <![endif]-->
+
+    <script type="text/javascript" src="/scripts/jquery.min.js"></script>
+
+  </head>
+  <body>
+    <form action="/culturequery" method="post" id="keyword_form">
+      <input type="text" class="text" placeholder="Enter keywords here" id="keyword" name="keyword"/>
+      <input class="submit" value="Query culture grid" type="submit"/>
+
+      <p>You searched for: <%= req.formvalue %></p>
+      <hr>
+      <h1><%= req.itemTitle %></h1>
+      <p><img src="<%= req.returnedImgUrl %>" /></p>
+      <p><%= req.sorryMsg %></p>
+    </form>
+  </body>
+</html>
+

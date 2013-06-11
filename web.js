@@ -1,8 +1,11 @@
 var async   = require('async');
 var express = require('express');
 var util    = require('util');
+var http    = require('http');
+var httpreq = require('httpreq');
 
 // create an express webserver
+
 var app = express.createServer(
   express.logger(),
   express.static(__dirname + '/public'),
@@ -56,6 +59,19 @@ function render_page(req, res) {
   });
 }
 
+function render_form_page(req, res) {
+  req.facebook.app(function(err, app) {
+    req.facebook.me(function(user) {
+      res.render('keyword_form.ejs', {
+        layout:    false,
+        req:       req,
+        app:       app,
+        user:      user
+      });
+    });
+  });
+}
+
 function handle_facebook_request(req, res) {
 
   // if the user is logged in
@@ -99,5 +115,87 @@ function handle_facebook_request(req, res) {
   }
 }
 
+
+function display_keyword_form(req, res) {
+
+  console.log("req", req.body['keyword']);
+
+  var keyword = req.body['keyword'];
+  if(keyword === ""){
+    keyword = "sample";
+  }
+
+  
+
+  httpreq.get('http://www.culturegrid.org.uk/index/select', {
+    parameters: {
+        q: keyword,
+        wt:'json',
+        have_thumbnail:'true',
+        record_type:'item',
+        maximumRecords: '100'
+    },
+    headers:{
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:18.0) Gecko/20100101 Firefox/18.0'
+    }
+  }, function (err, res){
+    var imageUrl = "";
+    var sorryMsg = "";
+    var itemTitle = "";
+    if (err){
+        console.log(err);
+    }else{
+        //create randomisation from no. of docs returned for integer of array
+        //console.log(JSON.parse(res.body).response.docs);
+        //walk through docs, if thumbnail exists then add as URL
+
+        var docs = JSON.parse(res.body).response.docs;
+        var docsLength = docs.length;
+
+        //for each item in array test for pndsterms.thumbnail
+        for (var i = docsLength - 1; i >= 0; i--) {
+          if(docs[i]['pndsterms.thumbnail']){
+            imageUrl = docs[i]['pndsterms.thumbnail'];
+            itemTitle = docs[i]['dc.title'][0];
+            console.log("image when being set", imageUrl)
+            break;
+          }
+        };
+        console.log("image after break", imageUrl)
+        if(imageUrl === ""){
+          sorryMsg = "No items with image thumbnail found. Please try another search term"
+        }
+        //if one found, break loop, retrieve name and image URL and pass back to main
+        
+        //if none return message to page saying no images
+
+        console.log("inside", imageUrl, itemTitle);
+
+        //how to create something exposed outside of this callback?
+        renderPageAgain(itemTitle, imageUrl, sorryMsg);
+    }
+  });
+
+  function renderPageAgain(title, image, sorryMsg){
+    console.log("outside", title, image, sorryMsg)
+    req.formvalue = req.body['keyword'];
+    req.itemTitle = title;
+    req.returnedImgUrl = image;
+    req.sorryMsg = sorryMsg;
+    render_form_page(req, res);//this isn't forwarding back to page, wrong res and req
+  }
+
+  
+
+  //make get request to JSON API at culture grid
+  //construct DOM elem from JSON result in success handler
+  //render form page with item in result
+
+}
+
 app.get('/', handle_facebook_request);
 app.post('/', handle_facebook_request);
+
+app.get('/culturequery', display_keyword_form);
+
+app.post('/culturequery', display_keyword_form);
