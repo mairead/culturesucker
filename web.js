@@ -196,9 +196,17 @@ function display_keyword_form(req, res, err) {
   //}
 }
 
+function show_page(req, res){
+  res.render('default.ejs', {
+    layout:    false,
+    req:       req
+  });
+}
+
 // app.get('/', handle_facebook_request);
 // app.post('/', handle_facebook_request);
 
+app.get('/', show_page);
 app.get('/culturequery', display_keyword_form);
 
 app.post('/culturequery', display_keyword_form);
