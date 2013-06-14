@@ -46,6 +46,7 @@ function display_keyword_form(req, res) {
     //   sorryMsg = "No items with image thumbnail found. Please try another search term";
     // }
      renderPageAgain(itemTitle, imageUrl);
+     render_form_page(req, res);
   }
 })
 
