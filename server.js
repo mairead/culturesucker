@@ -1,6 +1,6 @@
 var async   = require('async');
 var express = require('express');
-
+var httpreq = require('httpreq');
 
 // create an express webserver
 
@@ -8,14 +8,7 @@ var app = express.createServer(
   express.logger(),
   express.static(__dirname + '/public'),
   express.bodyParser(),
-  express.cookieParser()//,
-  // set this to a secret value to encrypt session cookies
-  // express.session({ secret: process.env.SESSION_SECRET || 'secret123' }),
-  // require('faceplate').middleware({
-  //   app_id: process.env.FACEBOOK_APP_ID,
-  //   secret: process.env.FACEBOOK_SECRET,
-  //   scope:  'user_likes,user_photos,user_photo_video_tags'
-  // })
+  express.cookieParser()
 );
 
 // listen to the PORT given to us in the environment
@@ -31,18 +24,53 @@ function display_keyword_form(req, res) {
   keyword = req.body['keyword'];
 
 
+  httpreq.get('http://www.culturegrid.org.uk/index/select', {
+    parameters: {
+        q: keyword,
+        wt:'json',
+        fq: 'pndsterms.thumbnail:[* TO *]',
+        have_thumbnail:'true',
+        record_type:'item',
+        maximumRecords: '10'
+    },
+    headers:{
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:18.0) Gecko/20100101 Firefox/18.0'
+    }
+  }, function (err, res){
+    var imageUrl = "";
+    var sorryMsg = "";
+    var itemTitle = "";
+    if (err){
+        console.log(err);
+    }else{
+        var docs = JSON.parse(res.body).response.docs;
+        var docsLength = docs.length;
+
+       //for each item in array test for pndsterms.thumbnail
+        for (var i = docsLength - 1; i >= 0; i--) {
+           if(docs[i]['pndsterms.thumbnail']){
+            imageUrl = docs[i]['pndsterms.thumbnail'];
+            itemTitle = docs[i]['dc.title'][0];
+            break;
+           }
+        };
+
+        if(imageUrl === ""){
+          sorryMsg = "No items with image thumbnail found. Please try another search term";
+        }
+        renderPageAgain(itemTitle, imageUrl, sorryMsg);
+      }
+    }
+  );
+
   function renderPageAgain(title, image, sorryMsg){
-    console.log("outside", title, image, sorryMsg)
+    //console.log("outside", title, image, sorryMsg)
     req.formvalue = req.body['keyword'];
     req.itemTitle = title;
     req.returnedImgUrl = image;
     req.sorryMsg = sorryMsg;
-    render_form_page(req, res);//this isn't forwarding back to page, wrong res and req
+    render_form_page(req, res);
   }
-
-  renderPageAgain("this", "img", "sorry")  
-
-
 }
 
 function render_form_page(req, res) {
@@ -59,8 +87,6 @@ function show_page(req, res){
   });
 }
 
-// app.get('/', handle_facebook_request);
-// app.post('/', handle_facebook_request);
-
 app.get('/', show_page);
 app.get('/culturequery', display_keyword_form);
+app.post('/culturequery', display_keyword_form);
