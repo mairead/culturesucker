@@ -112,12 +112,11 @@ function handle_facebook_request(req, res) {
 
 function display_keyword_form(req, res) {
 
+  var keyword = "sample"; //default value
+
   console.log("req", req.body['keyword']);
 
-  var keyword = req.body['keyword'];
-  if(keyword === ""){
-    keyword = "sample";
-  }
+  keyword = req.body['keyword'];
 
   httpreq.get('http://www.culturegrid.org.uk/index/select', {
     parameters: {
