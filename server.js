@@ -33,14 +33,14 @@ function display_keyword_form(req, res) {
     var docs = JSON.parse(body).response.docs;
     var docsLength = docs.length;
 
-//    //for each item in array test for pndsterms.thumbnail
-//     for (var i = docsLength - 1; i >= 0; i--) {
-//        if(docs[i]['pndsterms.thumbnail']){
-//         imageUrl = docs[i]['pndsterms.thumbnail'];
-//         itemTitle = docs[i]['dc.title'][0];
-//         break;
-//        }
-//     };
+   //for each item in array test for pndsterms.thumbnail
+    for (var i = docsLength - 1; i >= 0; i--) {
+       if(docs[i]['pndsterms.thumbnail']){
+        imageUrl = docs[i]['pndsterms.thumbnail'];
+        itemTitle = docs[i]['dc.title'][0];
+        break;
+       }
+    };
 
 //     if(imageUrl === ""){
 //       sorryMsg = "No items with image thumbnail found. Please try another search term";
