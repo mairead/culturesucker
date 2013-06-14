@@ -42,10 +42,10 @@ function display_keyword_form(req, res) {
        }
     };
 
-//     if(imageUrl === ""){
-//       sorryMsg = "No items with image thumbnail found. Please try another search term";
-//     }
-//     renderPageAgain(itemTitle, imageUrl, sorryMsg);
+    if(imageUrl === ""){
+      sorryMsg = "No items with image thumbnail found. Please try another search term";
+    }
+    renderPageAgain(itemTitle, imageUrl, sorryMsg);
   }
 })
 
@@ -58,7 +58,7 @@ function display_keyword_form(req, res) {
     req.sorryMsg = sorryMsg;
     render_form_page(req, res);
   }
-  renderPageAgain("this", "this", "this")
+  //renderPageAgain("this", "this", "this")
 }
 
 function render_form_page(req, res) {
