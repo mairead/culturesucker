@@ -110,21 +110,29 @@ function handle_facebook_request(req, res) {
 }
 
 
-function display_keyword_form(req, res) {
+function display_keyword_form(req, res, err) {
 
   var keyword = "sample"; //default value
 
-  console.log("req", req.body['keyword']);
+  //console.log("req", req.body['keyword']);
+
+  //if this is empty then the application will crash...
 
   keyword = req.body['keyword'];
+
+  // if (err){
+  //   req.errorValidation = "Please enter a search term";
+  //   render_form_page(req, res);
+  // }else{
 
   httpreq.get('http://www.culturegrid.org.uk/index/select', {
     parameters: {
         q: keyword,
         wt:'json',
+        fq: 'pndsterms.thumbnail:[* TO *]',
         have_thumbnail:'true',
         record_type:'item',
-        maximumRecords: '100'
+        maximumRecords: '10'
     },
     headers:{
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:18.0) Gecko/20100101 Firefox/18.0'
@@ -145,6 +153,7 @@ function display_keyword_form(req, res) {
 
   //       //for each item in array test for pndsterms.thumbnail
         for (var i = docsLength - 1; i >= 0; i--) {
+          console.log(docs[i])
            if(docs[i]['pndsterms.thumbnail']){
             imageUrl = docs[i]['pndsterms.thumbnail'];
             itemTitle = docs[i]['dc.title'][0];
@@ -184,7 +193,7 @@ function display_keyword_form(req, res) {
   //make get request to JSON API at culture grid
   //construct DOM elem from JSON result in success handler
   //render form page with item in result
-
+  //}
 }
 
 // app.get('/', handle_facebook_request);

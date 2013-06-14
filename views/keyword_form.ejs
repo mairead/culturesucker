@@ -11,15 +11,33 @@
     <!--[if IEMobile]>
     <link rel="stylesheet" href="mobile.css" media="screen" type="text/css"  />
     <![endif]-->
-    <style type="text/css">p, h1{margin-bottom:1em;}</style>
+    <style type="text/css">
+      p, h1{margin-bottom:1em;}
+      #error-validation{color:red;}
+    </style>
 
     <script type="text/javascript" src="/scripts/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      $("#keyword_form").bind("submit", function(e){
+
+        if($("#keyword").val() === "" || $("#keyword").val() === null){
+          $("#error-validation").text("Please enter a search term");
+          e.preventDefault();
+        }else{
+          $("#error-validation").text("");
+        }
+        
+      })
+    })
+    </script>
 
   </head>
   <body>
     <form action="/culturequery" method="post" id="keyword_form">
+      <p id="error-validation"></p>
       <input type="text" class="text" placeholder="Enter keywords here" id="keyword" name="keyword"/>
-      <input class="submit" value="Query culture grid" type="submit"/>
+      <input class="submit" value="Query culture grid" type="submit" id="submit"/>
 
       <p>You searched for: <%= req.formvalue %></p>
       <hr>
