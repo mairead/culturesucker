@@ -23,9 +23,9 @@ function display_keyword_form(req, res) {
   var keyword = "sample"; //default value
   keyword = req.body['keyword'];
 
-//   var url = 'http://www.culturegrid.org.uk/index/select/?q=' + keyword + '&wt=json&fq=pndsterms.thumbnail:[* TO *]'
+  var url = 'http://www.culturegrid.org.uk/index/select/?q=' + keyword + '&wt=json&fq=pndsterms.thumbnail:[* TO *]'
 
-//   request(url, function (error, response, body) {
+  request(url, function (error, response, body) {
 //   if (!error && response.statusCode == 200) {
 //     var imageUrl = "";
 //     var sorryMsg = "";
@@ -47,7 +47,7 @@ function display_keyword_form(req, res) {
 //     }
 //     renderPageAgain(itemTitle, imageUrl, sorryMsg);
 //   }
-// })
+})
 
 
   function renderPageAgain(title, image, sorryMsg){
