@@ -42,20 +42,19 @@ function display_keyword_form(req, res) {
        }
     };
 
-    if(imageUrl === ""){
-      sorryMsg = "No items with image thumbnail found. Please try another search term";
-    }
-    renderPageAgain(itemTitle, imageUrl, sorryMsg);
+    // if(imageUrl === ""){
+    //   sorryMsg = "No items with image thumbnail found. Please try another search term";
+    // }
+    renderPageAgain(itemTitle, imageUrl);
   }
 })
 
 
-  function renderPageAgain(title, image, sorryMsg){
-    //console.log("outside", title, image, sorryMsg)
+  function renderPageAgain(title, image){
+    //console.log("outside", title, image)
     req.formvalue = req.body['keyword'];
     req.itemTitle = title;
     req.returnedImgUrl = image;
-    req.sorryMsg = sorryMsg;
     render_form_page(req, res);
   }
   //renderPageAgain("this", "this", "this")
