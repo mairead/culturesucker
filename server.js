@@ -23,7 +23,31 @@ function display_keyword_form(req, res) {
   var keyword = "sample"; //default value
   keyword = req.body['keyword'];
 
-  
+  var url = 'http://www.culturegrid.org.uk/index/select/?q=' + keyword + '&wt=json&fq=pndsterms.thumbnail:[* TO *]'
+
+  request(url, function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    var imageUrl = "";
+    var sorryMsg = "";
+    var itemTitle = "";
+    var docs = JSON.parse(body).response.docs;
+    var docsLength = docs.length;
+
+   //for each item in array test for pndsterms.thumbnail
+    for (var i = docsLength - 1; i >= 0; i--) {
+       if(docs[i]['pndsterms.thumbnail']){
+        imageUrl = docs[i]['pndsterms.thumbnail'];
+        itemTitle = docs[i]['dc.title'][0];
+        break;
+       }
+    };
+
+    if(imageUrl === ""){
+      sorryMsg = "No items with image thumbnail found. Please try another search term";
+    }
+    renderPageAgain(itemTitle, imageUrl, sorryMsg);
+  }
+})
 
   // httpreq.get('http://www.culturegrid.org.uk/index/select', {
   //   parameters: {
@@ -72,7 +96,7 @@ function display_keyword_form(req, res) {
     req.sorryMsg = sorryMsg;
     render_form_page(req, res);
   }
-  renderPageAgain("this", "this", "this")
+  //renderPageAgain("this", "this", "this")
 }
 
 function render_form_page(req, res) {
