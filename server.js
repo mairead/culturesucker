@@ -24,44 +24,44 @@ function display_keyword_form(req, res) {
   //keyword = req.body['keyword'];
 
 
-  httpreq.get('http://www.culturegrid.org.uk/index/select', {
-    parameters: {
-        q: keyword,
-        wt:'json',
-        fq: 'pndsterms.thumbnail:[* TO *]',
-        have_thumbnail:'true',
-        record_type:'item',
-        maximumRecords: '10'
-    },
-    headers:{
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:18.0) Gecko/20100101 Firefox/18.0'
-    }
-  }, function (err, res){
-    var imageUrl = "";
-    var sorryMsg = "";
-    var itemTitle = "";
-    if (err){
-        console.log(err);
-    }else{
-        var docs = JSON.parse(res.body).response.docs;
-        var docsLength = docs.length;
+  // httpreq.get('http://www.culturegrid.org.uk/index/select', {
+  //   parameters: {
+  //       q: keyword,
+  //       wt:'json',
+  //       fq: 'pndsterms.thumbnail:[* TO *]',
+  //       have_thumbnail:'true',
+  //       record_type:'item',
+  //       maximumRecords: '10'
+  //   },
+  //   headers:{
+  //       'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:18.0) Gecko/20100101 Firefox/18.0'
+  //   }
+  // }, function (err, res){
+  //   var imageUrl = "";
+  //   var sorryMsg = "";
+  //   var itemTitle = "";
+  //   if (err){
+  //       console.log(err);
+  //   }else{
+  //       var docs = JSON.parse(res.body).response.docs;
+  //       var docsLength = docs.length;
 
-       //for each item in array test for pndsterms.thumbnail
-        for (var i = docsLength - 1; i >= 0; i--) {
-           if(docs[i]['pndsterms.thumbnail']){
-            imageUrl = docs[i]['pndsterms.thumbnail'];
-            itemTitle = docs[i]['dc.title'][0];
-            break;
-           }
-        };
+  //      //for each item in array test for pndsterms.thumbnail
+  //       for (var i = docsLength - 1; i >= 0; i--) {
+  //          if(docs[i]['pndsterms.thumbnail']){
+  //           imageUrl = docs[i]['pndsterms.thumbnail'];
+  //           itemTitle = docs[i]['dc.title'][0];
+  //           break;
+  //          }
+  //       };
 
-        if(imageUrl === ""){
-          sorryMsg = "No items with image thumbnail found. Please try another search term";
-        }
-        renderPageAgain(itemTitle, imageUrl, sorryMsg);
-      }
-    }
-  );
+  //       if(imageUrl === ""){
+  //         sorryMsg = "No items with image thumbnail found. Please try another search term";
+  //       }
+  //       renderPageAgain(itemTitle, imageUrl, sorryMsg);
+  //     }
+  //   }
+  // );
 
   function renderPageAgain(title, image, sorryMsg){
     //console.log("outside", title, image, sorryMsg)
@@ -71,6 +71,7 @@ function display_keyword_form(req, res) {
     req.sorryMsg = sorryMsg;
     render_form_page(req, res);
   }
+  renderPageAgain("this", "this", "this")
 }
 
 function render_form_page(req, res) {
