@@ -8,7 +8,7 @@
     "async":     "0.1.18",
     "ejs":       "0.4.3",
     "express":   "2.4.6",
-    "httpreq":   "0.3.2"
+    "request":   "2.21.0" 
   },
 
   "engines": {

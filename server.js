@@ -1,6 +1,6 @@
 var async   = require('async');
 var express = require('express');
-var httpreq = require('httpreq');
+var request = require('request');
 
 // create an express webserver
 
@@ -23,20 +23,21 @@ function display_keyword_form(req, res) {
   var keyword = "sample"; //default value
   keyword = req.body['keyword'];
 
+  
 
-  httpreq.get('http://www.culturegrid.org.uk/index/select', {
-    parameters: {
-        q: keyword,
-        wt:'json',
-        fq: 'pndsterms.thumbnail:[* TO *]',
-        have_thumbnail:'true',
-        record_type:'item',
-        maximumRecords: '10'
-    },
-    headers:{
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:18.0) Gecko/20100101 Firefox/18.0'
-    }
-  }, function (err, res){
+  // httpreq.get('http://www.culturegrid.org.uk/index/select', {
+  //   parameters: {
+  //       q: keyword,
+  //       wt:'json',
+  //       fq: 'pndsterms.thumbnail:[* TO *]',
+  //       have_thumbnail:'true',
+  //       record_type:'item',
+  //       maximumRecords: '10'
+  //   },
+  //   headers:{
+  //       'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:18.0) Gecko/20100101 Firefox/18.0'
+  //   }
+  // }, function (err, res){
   //   var imageUrl = "";
   //   var sorryMsg = "";
   //   var itemTitle = "";
@@ -60,8 +61,8 @@ function display_keyword_form(req, res) {
   //       }
   //       renderPageAgain(itemTitle, imageUrl, sorryMsg);
   //     }
-    }
-  );
+  //   }
+  // );
 
   function renderPageAgain(title, image, sorryMsg){
     //console.log("outside", title, image, sorryMsg)
