@@ -21,7 +21,7 @@ app.listen(port, function() {
 function display_keyword_form(req, res) {
 
   var keyword = "sample"; //default value
-  //keyword = req.body['keyword'];
+  keyword = req.body['keyword'];
 
 
   // httpreq.get('http://www.culturegrid.org.uk/index/select', {
