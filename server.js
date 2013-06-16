@@ -73,6 +73,20 @@ function show_login(req, res){
 function render_culture_page(req, res){
   req.facebook.app(function(err, app) {
     req.facebook.me(function(user, test){
+
+
+      req.username = "";
+      req.like = "";
+
+      if(test !== null){
+  
+      req.username = test.name;
+        //console.log("likes: ", test.likes)
+      }
+
+
+
+
       res.render('culture.ejs', {
         layout:    false,
         req:       req,
@@ -226,12 +240,13 @@ function show_me_culture(req, res){
         // query 4 likes and send them to the socket for this socket id
         req.facebook.get('/me/likes', { limit: 4 }, function(likes) {
           req.likes = likes;
-
-          cb();
+          console.log("likes cb returned in async", req.likes)
+          cb(likes);
         });
       }
-    ], function() {
-      console.log("likes cb returned", req.likes)
+    ], function(likes) {
+      console.log("likes cb returned", likes)
+      req.likes = likes;
       render_culture_page(req, res);
     });
   } else {
