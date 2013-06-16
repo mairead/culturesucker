@@ -71,8 +71,12 @@ function show_login(req, res){
 
 //heroku default app, view template code
 function render_page(req, res) {
+  console.log("RENDER APP?...", req.facebook.app);
+
   req.facebook.app(function(err, app) {
+    console.log("ME?...", req.facebook.me);
     req.facebook.me(function(user) {
+      console.log("USER?...", user);
       res.render('index.ejs', {
         layout:    false,
         req:       req,
