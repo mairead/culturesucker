@@ -74,7 +74,7 @@ var Faceplate = function(options) {
       redirect_uri:  '',
       code:          data.code
     };
-
+console.log("PARAMS...", params)
     var request = restler.get('https://graph.facebook.com/oauth/access_token',
       { query:params });
 
