@@ -71,12 +71,11 @@ function show_login(req, res){
 
 //heroku default app, view template code
 function render_page(req, res) {
-  console.log("RENDER APP?...", req.facebook.app);
-
+  //console.log("RENDER APP?...", req.facebook.app);
   req.facebook.app(function(err, app) {
-    console.log("ME?...", req.facebook.me);
+    //console.log("ME?...", req.facebook.me);
     req.facebook.me(function(user) {
-      console.log("USER?...", user);
+      //console.log("USER?...", user);
       res.render('index.ejs', {
         layout:    false,
         req:       req,
@@ -147,14 +146,17 @@ function handle_facebook_request(req, res) {
   // if the user is logged in
   if (req.facebook.token) {
     console.log("TOKEN...", req.facebook.token);
-    // async.parallel([
-    //   function(cb) {
-    //     // query 4 friends and send them to the socket for this socket id
-    //     req.facebook.get('/me/friends', { limit: 4 }, function(friends) {
-    //       req.friends = friends;
-    //       cb();
-    //     });
-    //   },
+    async.parallel([
+      function(cb) {
+        console.log("ASYNC FUNC")
+        // query 4 friends and send them to the socket for this socket id
+        req.facebook.get('/me/friends', { limit: 4 }, function(friends) {
+          console.log("INSIDE GET CALLBACK")
+          req.friends = friends;
+          cb();
+        });
+      }
+      //,
     //   function(cb) {
     //     // query 16 photos and send them to the socket for this socket id
     //     req.facebook.get('/me/photos', { limit: 16 }, function(photos) {
@@ -176,12 +178,14 @@ function handle_facebook_request(req, res) {
     //       cb();
     //     });
     //   }
-    // ], function() {
-    //   render_page(req, res);
-    // });
+    ], function() {
+      console.log("ASYNC RETURNED")
+      render_page(req, res);
+    });
 
   } else {
-    //the page renders to begin with, calls the first handshake and then fails. 
+    //the page renders to begin with, calls the first handshake and then fails.
+    console.log("RENDER FIRST TIME"); 
     render_page(req, res);
   }
 }
