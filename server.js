@@ -219,7 +219,22 @@ function handle_facebook_request(req, res) {
 
 //controller to present culturegrid item from likes
 function show_me_culture(req, res){
-  render_culture_page(req, res);
+
+  if (req.facebook.token) {
+    // async.parallel([
+    //   function(cb) {
+    //     // query 4 likes and send them to the socket for this socket id
+    //     req.facebook.get('/me/likes', { limit: 4 }, function(likes) {
+    //       req.likes = likes;
+    //       cb();
+    //     });
+    //   }
+    console.log("logged in")
+    render_culture_page(req, res);
+    } else {
+    //the page renders to begin with, calls the first handshake and then fails. 
+    render_culture_page(req, res);
+  }
 }
 
 //routing
