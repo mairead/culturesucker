@@ -71,10 +71,9 @@ function show_login(req, res){
 
 //heroku default app, view template code
 function render_page(req, res) {
-  console.log("RENDER APP?...", req.facebook.app);
   req.facebook.app(function(err, app) {
-    console.log("ME?...", req.facebook.me);
     req.facebook.me(function(user) {
+      //why isn't the user function callback params sig err, user? me is using get
       console.log("USER?...", user);
       //why is my user null? I have the toke and the token is valid?
       res.render('index.ejs', {
@@ -150,11 +149,11 @@ function handle_facebook_request(req, res) {
     //this user token is defnitely valid
     async.parallel([
       function(cb) {
-        console.log("ASYNC FUNC", req.facebook.get)
+        console.log("ASYNC GET FUNC - making calls to graph")
         // query 4 friends and send them to the socket for this socket id
         req.facebook.get('/me/friends', { limit: 4 }, function(friends) {
           //this is null and user is null, suspect me is null although token recognises me
-          console.log("INSIDE GET CALLBACK", friends);
+          console.log("INSIDE ASYNC CALLBACK - currently null", friends);
           req.friends = friends;
           cb();
         });
