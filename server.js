@@ -70,6 +70,13 @@ function show_login(req, res){
   });
 }
 
+function render_culture_page(req, res){
+  res.render('culture.ejs', {
+    layout:    false,
+    req:       req
+  });
+}
+
 //heroku default app, view template code
 function render_page(req, res) {
   req.facebook.app(function(err, app) {
@@ -204,9 +211,15 @@ function handle_facebook_request(req, res) {
   }
 }
 
+//controller to present culturegrid item from likes
+function show_me_culture(req, res){
+  render_culture_page(req, res);
+}
+
 //routing
 app.get('/', show_page);
 app.get('/culturequery', display_keyword_form);
 app.post('/culturequery', display_keyword_form);
 app.get('/facebooklogin', facebook_login);
-app.get('/herokuauth', handle_facebook_request)
+app.get('/herokuauth', handle_facebook_request);
+app.get('/cultureme', show_me_culture);
