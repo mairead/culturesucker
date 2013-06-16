@@ -241,15 +241,16 @@ function show_me_culture(req, res){
         // query 4 likes and send them to the socket for this socket id
         req.facebook.get('/me/likes', { limit: 4 }, function(likes, newLikes) {
           req.likes = likes;
-          console.log("likes cb returned in async", likes, newLikes)
+          //console.log("likes cb returned in async", likes, newLikes)
           cb(newLikes);
     
         })
       }
     ], function(likes) {
-      console.log("likes cb returned", likes)
+      console.log("likes cb returned", likes.data)
       req.likes = likes;
-      req.firstLike = "";
+      req.firstLike = likes.data[0].name;
+      console.log(req.firstLike)
       render_culture_page(req, res);
     });
   } else {
