@@ -134,7 +134,7 @@ var FaceplateSession = function(plate, signed_request) {
       params = {};
     }
 
-    console.log("get vars: ", path, params, cb)
+   // console.log("get vars: ", path, params, cb)
 
     if (self.token)
       params.access_token = self.token;
