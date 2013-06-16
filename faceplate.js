@@ -119,7 +119,7 @@ var FaceplateSession = function(plate, signed_request) {
 
       self.get('/me', function(err, me) {
         console.log("me in callback of faceplate get me \n" , "me obj: ", me)
-        console.log("error in get when called by me", me, err)
+        console.log("error in get when called by me", "'"+err+"'")
         cb(err,me, "title");
       });
     } else {
