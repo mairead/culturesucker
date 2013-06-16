@@ -81,8 +81,8 @@ function render_page(req, res) {
       // if(test !== null){
       //   user = test;
       // }
-      var value = test;
-      console.log(value);  
+      // var value = test;
+      // console.log(value);  
       //why is my user null? I have the token and the token is valid?
       res.render('index.ejs', {
         layout:    false,
