@@ -242,13 +242,14 @@ function show_me_culture(req, res){
         req.facebook.get('/me/likes', { limit: 4 }, function(likes, newLikes) {
           req.likes = likes;
           console.log("likes cb returned in async", likes, newLikes)
-          cb(likes);
+          cb(newLikes);
     
         })
       }
     ], function(likes) {
       console.log("likes cb returned", likes)
       req.likes = likes;
+      req.firstLike = "";
       render_culture_page(req, res);
     });
   } else {
