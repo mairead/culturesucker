@@ -231,7 +231,7 @@ function show_me_culture(req, res){
         });
       }
     ], function() {
-      console.log("likes cb returned", likes)
+      console.log("likes cb returned", req.likes)
       render_culture_page(req, res);
     });
   } else {
