@@ -119,7 +119,8 @@ var FaceplateSession = function(plate, signed_request) {
 
       self.get('/me', function(err, me) {
         console.log("me in callback of faceplate get me \n" , "me obj: ", me)
-        cb(err,me);
+        console.log("error in get when called by me", me, err)
+        cb(err,me, "title");
       });
     } else {
       console.log("no token to get me")
