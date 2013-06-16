@@ -112,6 +112,7 @@ var FaceplateSession = function(plate, signed_request) {
     });
   };
 
+
   this.me = function(cb) {
     console.log("calling me path inside faceplate: \n", "faceplate token: ", self.token);
     if (self.token) {
@@ -144,9 +145,9 @@ var FaceplateSession = function(plate, signed_request) {
           cb(result);
         });
         request.on('success', function(data) {
-          console.log("SUCCESS GET")
+          console.log("SUCCESS GET request made to facebook object")
           var result = JSON.parse(JSON.stringify(data)); // <<<<
-          console.log("result inside get called from faceplate: \n", "get result: ", result)
+          //console.log("result inside get called from faceplate: \n", "get result: ", result)
           cb(null, result);
         });
     } catch (err) {
