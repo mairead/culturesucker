@@ -33,6 +33,13 @@ function show_page(req, res){
   });
 }
 
+function show_login(req, res){
+  res.render('login.ejs', {
+    layout:    false,
+    req:       req
+  });
+}
+
 
 //controller actions
 function display_keyword_form(req, res) {
@@ -80,7 +87,13 @@ function display_keyword_form(req, res) {
   });    
 };
 
+//create FB authentication and retrieve user's likes to page
+function facebook_login(req, res){
+  show_login(req, res);
+}
+
 //routing
 app.get('/', show_page);
 app.get('/culturequery', display_keyword_form);
 app.post('/culturequery', display_keyword_form);
+app.get('/facebooklogin', facebook_login);
