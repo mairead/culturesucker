@@ -113,7 +113,7 @@ var FaceplateSession = function(plate, signed_request) {
   };
 
   this.me = function(cb) {
-    consoele.log("calling me path");
+    console.log("calling me path");
     if (self.token) {
 
       self.get('/me', function(err, me) {
