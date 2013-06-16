@@ -75,7 +75,7 @@ function render_page(req, res) {
     console.log("calling me when inside render func")
     req.facebook.me(function(user) {
       //why isn't the user function callback params sig err, user? me is using get
-      console.log("USER?...", user);
+      console.log("USER: ", user);
       //why is my user null? I have the toke and the token is valid?
       res.render('index.ejs', {
         layout:    false,
@@ -146,15 +146,15 @@ function handle_facebook_request(req, res) {
 
   // if the user is logged in
   if (req.facebook.token) {
-    console.log("TOKEN...", req.facebook.token);
+    console.log("TOKEN: ", req.facebook.token);
     //this user token is defnitely valid
     async.parallel([
       function(cb) {
-        console.log("ASYNC GET FUNC - making calls to graph, calling facebook me")
+        console.log("*ASYNC GET FUNC - making calls to graph, calling facebook me")
         // query 4 friends and send them to the socket for this socket id
         req.facebook.get('/me/friends', { limit: 4 }, function(friends) {
           //this is null and user is null, suspect me is null although token recognises me
-          console.log("INSIDE ASYNC CALLBACK - currently null", friends);
+          console.log("*INSIDE ASYNC CALLBACK - currently null \n", "friends: ", friends);
           req.friends = friends;
           cb();
         });

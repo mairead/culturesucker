@@ -113,11 +113,11 @@ var FaceplateSession = function(plate, signed_request) {
   };
 
   this.me = function(cb) {
-    console.log("calling me path inside faceplate: \n", self.token);
+    console.log("calling me path inside faceplate: \n", "faceplate token: ", self.token);
     if (self.token) {
 
       self.get('/me', function(err, me) {
-        console.log("me in callback of faceplate get me \n" , me)
+        console.log("me in callback of faceplate get me \n" , "me obj: ", me)
         cb(err,me);
       });
     } else {
@@ -146,7 +146,7 @@ var FaceplateSession = function(plate, signed_request) {
         request.on('success', function(data) {
           console.log("SUCCESS GET")
           var result = JSON.parse(JSON.stringify(data)); // <<<<
-          console.log("result inside get called from faceplate: \n", result)
+          console.log("result inside get called from faceplate: \n", "get result: ", result)
           cb(null, result);
         });
     } catch (err) {
