@@ -21,7 +21,7 @@ app.listen(port, function() {
 function display_keyword_form(req, res) {
 
   var keyword = "sample"; //default value
-  keyword = req.body['keyword'];
+  //keyword = req.body['keyword'];
 
   var url = 'http://www.culturegrid.org.uk/index/select/?q=' + keyword + '&wt=json&fq=pndsterms.thumbnail:[* TO *]'
 
@@ -41,6 +41,12 @@ function display_keyword_form(req, res) {
         break;
        }
     };
+
+    //do I need to add thiings to req here, is it still valid?   
+    // req.formvalue = req.body['keyword'];
+    // req.itemTitle = title;
+    // req.returnedImgUrl = image;
+    // render_form_page(req, res);
 
     //renderPageAgain(itemTitle, imageUrl);
     render_form_page(req, res);
