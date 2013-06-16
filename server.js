@@ -71,9 +71,13 @@ function show_login(req, res){
 }
 
 function render_culture_page(req, res){
-  res.render('culture.ejs', {
-    layout:    false,
-    req:       req
+  req.facebook.app(function(err, app) {
+    req.facebook.me(function(user, test){
+      res.render('culture.ejs', {
+        layout:    false,
+        req:       req
+      });
+    });
   });
 }
 
