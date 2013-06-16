@@ -75,7 +75,7 @@ function render_page(req, res) {
   req.facebook.app(function(err, app) {
     //console.log("ME?...", req.facebook.me);
     req.facebook.me(function(user) {
-      //console.log("USER?...", user);
+      console.log("USER?...", user);
       res.render('index.ejs', {
         layout:    false,
         req:       req,
