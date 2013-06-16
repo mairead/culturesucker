@@ -79,7 +79,7 @@ function render_culture_page(req, res){
       req.like = "";
 
       if(test !== null){
-  
+    console.log("test")
       req.username = test.name;
         //console.log("likes: ", test.likes)
       }
@@ -233,14 +233,17 @@ function handle_facebook_request(req, res) {
 
 //controller to present culturegrid item from likes
 function show_me_culture(req, res){
-
+  console.log("token>?", req.facebook.token)
   if (req.facebook.token) {
     async.parallel([
       function(cb) {
+        req.facebook.me(function(user, test){
+          console.log("new test", user, test)
+        }
         // query 4 likes and send them to the socket for this socket id
         req.facebook.get('/me/likes', { limit: 4 }, function(likes) {
           req.likes = likes;
-          console.log("likes cb returned in async", req.likes)
+          console.log("likes cb returned in async", req.likes, likes)
           cb(likes);
         });
       }
