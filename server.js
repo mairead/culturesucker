@@ -250,7 +250,7 @@ function show_me_culture(req, res){
       console.log("likes cb returned", likes.data)
       req.likes = likes;
       req.firstLike = likes.data[0].name;
-      console.log(req.firstLike)
+      console.log("FIRST LIKE", req.firstLike, "length", likes.data.length)
       render_culture_page(req, res);
     });
   } else {
