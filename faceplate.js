@@ -79,11 +79,13 @@ var Faceplate = function(options) {
       { query:params });
 
     request.on('fail', function(data) {
+      console.log("FAILING TOKEN")
       var result = JSON.parse(JSON.stringify(data)); // <<<<
       cb(result);
     });
 
     request.on('success', function(data) {
+      console.log("SUCCESS WITH TOKEN")
       cb(qs.parse(data));
     });
   };
@@ -128,10 +130,12 @@ var FaceplateSession = function(plate, signed_request) {
         var request = restler.get('https://graph.facebook.com' + path,
           { query: params });
         request.on('fail', function(data) {
+          console.log("FAILING GET")
           var result = JSON.parse(JSON.stringify(data)); // <<<<
           cb(result);
         });
         request.on('success', function(data) {
+          console.log("SUCCESS GET")
           var result = JSON.parse(JSON.stringify(data)); // <<<<
           cb(null, result);
         });
