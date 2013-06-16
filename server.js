@@ -152,7 +152,7 @@ function handle_facebook_request(req, res) {
         console.log("ASYNC FUNC")
         // query 4 friends and send them to the socket for this socket id
         req.facebook.get('/me/friends', { limit: 4 }, function(friends) {
-          console.log("INSIDE GET CALLBACK")
+          console.log("INSIDE GET CALLBACK", friends);
           req.friends = friends;
           cb();
         });
