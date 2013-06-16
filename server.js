@@ -239,7 +239,7 @@ function show_me_culture(req, res){
    
         
         // query 4 likes and send them to the socket for this socket id
-        req.facebook.get('/me/likes', { limit: 4 }, function(likes, newLikes) {
+        req.facebook.get('/me/likes', { limit: 20 }, function(likes, newLikes) {
           req.likes = likes;
           //console.log("likes cb returned in async", likes, newLikes)
           cb(newLikes);
@@ -250,8 +250,52 @@ function show_me_culture(req, res){
       console.log("likes cb returned", likes.data)
       req.likes = likes;
       req.firstLike = likes.data[0].name;
-      console.log("FIRST LIKE", req.firstLike, "length", likes.data.length)
-      render_culture_page(req, res);
+      console.log("FIRST LIKE", req.firstLike)
+
+      //add randomisation in here
+
+      async.parallel([
+        function(cb) {
+          var keyword = req.firstLike
+          if(typeof keyword === 'undefined'){
+            keyword = "sample"; //default value
+          };
+          console.log("KEYWORD....", keyword);
+          var filter = "pndsterms.thumbnail:[* TO *]";
+          var url = encodeURI('http://www.culturegrid.org.uk/index/select/?q=' + keyword + '&wt=json&fq='+filter);
+          console.log("URL....", url);
+          request(url, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+              var imageUrl = "";
+              var sorryMsg = "";
+              var itemTitle = "";
+              var docs = JSON.parse(body).response.docs;
+              var docsLength = docs.length;
+
+              //for each item in array test for pndsterms.thumbnail
+              for (var i = docsLength - 1; i >= 0; i--) {
+                if(docs[i]['pndsterms.thumbnail']){
+                  imageUrl = docs[i]['pndsterms.thumbnail'];
+                  itemTitle = docs[i]['dc.title'][0];
+                  break;
+                };
+              };
+            };
+            //pack return values into an object
+            var returnObj = {
+              'title':itemTitle,
+              'imageUrl': imageUrl
+            }
+            cb(keyword, returnObj);
+          });//end async request call to GET
+        }
+      ], function(keyword, returnObj){
+        var params = returnObj[0]//async returns params back inside an array object
+        req.formvalue = keyword
+        req.itemTitle = params.title;
+        req.returnedImgUrl = params.imageUrl;
+        render_culture_page(req, res);
+      });
     });
   } else {
     //the page renders to begin with, calls the first handshake and then fails. 
