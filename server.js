@@ -10,7 +10,8 @@ var app = express.createServer(
   express.bodyParser(),
   express.cookieParser(),
   // set this to a secret value to encrypt session cookies
-  //this sets a dummy one to begin with and then creates new when a user session is begun I think
+  //this sets a dummy one to begin with and then creates new
+  // when a user session is begun I think
   express.session({ secret: process.env.SESSION_SECRET || 'secret123' }),
   require('./faceplate').middleware({
     app_id: '531423360247136',
@@ -73,7 +74,7 @@ function show_login(req, res){
 function render_page(req, res) {
   req.facebook.app(function(err, app) {
     console.log("calling me when inside render func")
-    req.facebook.me(function(user) {
+    req.facebook.me(function(err, user) {
       //why isn't the user function callback params sig err, user? me is using get
       console.log("USER: ", user);
       //why is my user null? I have the toke and the token is valid?
