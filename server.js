@@ -239,9 +239,9 @@ function show_me_culture(req, res){
    
         
         // query 4 likes and send them to the socket for this socket id
-        req.facebook.get('/me/likes', { limit: 4 }, function(likes) {
+        req.facebook.get('/me/likes', { limit: 4 }, function(likes, newLikes) {
           req.likes = likes;
-          console.log("likes cb returned in async", likes)
+          console.log("likes cb returned in async", likes, newLikes)
           cb(likes);
     
         })
