@@ -83,7 +83,7 @@ function render_page(req, res) {
         layout:    false,
         req:       req,
         app:       app,
-        user:      user
+        user:      test
       });
     });
   });
