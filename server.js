@@ -43,7 +43,8 @@ function display_keyword_form(req, res) {
         keyword = "sample"; //default value
       };
       console.log("KEYWORD....", keyword);
-      var url = 'http://www.culturegrid.org.uk/index/select/?q=' + keyword + '&wt=json&fq=pndsterms.thumbnail:[* TO *]'
+      var filter = "pndsterms.thumbnail:[* TO *]";
+      var url = encodeURI('http://www.culturegrid.org.uk/index/select/?q=' + keyword + '&wt=json&fq='+filter);
       console.log("URL....", url);
       request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
