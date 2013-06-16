@@ -78,6 +78,9 @@ function render_page(req, res) {
     req.facebook.me(function(user, test) {
       //why isn't the user function callback params sig err, user? me is using get
       console.log("USER: ", user, "'"+err+"'", test);
+      if(test !== null){
+        user = test;
+      }
       //why is my user null? I have the token and the token is valid?
       res.render('index.ejs', {
         layout:    false,
