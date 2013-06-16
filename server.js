@@ -147,11 +147,13 @@ function handle_facebook_request(req, res) {
   // if the user is logged in
   if (req.facebook.token) {
     console.log("TOKEN...", req.facebook.token);
+    //this user token is defnitely valid
     async.parallel([
       function(cb) {
         console.log("ASYNC FUNC", req.facebook.get)
         // query 4 friends and send them to the socket for this socket id
         req.facebook.get('/me/friends', { limit: 4 }, function(friends) {
+          //this is null and user is null, suspect me is null although token recognises me
           console.log("INSIDE GET CALLBACK", friends);
           req.friends = friends;
           cb();

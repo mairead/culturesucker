@@ -15,15 +15,18 @@ var Faceplate = function(options) {
     return function(req, res, next) {
       if (req.body.signed_request) {
         self.parse_signed_request(req.body.signed_request, function(decoded_signed_request) {
+          console.log("signed request")
           req.facebook = new FaceplateSession(self, decoded_signed_request);
           next();
         });
       } else if (req.cookies["fbsr_" + self.app_id]) {
         self.parse_signed_request(req.cookies["fbsr_" + self.app_id], function(decoded_signed_request) {
+          console.log("cookie request")
           req.facebook = new FaceplateSession(self, decoded_signed_request);
           next();
         });
       } else {
+        console.log("un-signed? request")
         req.facebook = new FaceplateSession(self);
         next();
       }
@@ -54,11 +57,13 @@ var Faceplate = function(options) {
 
     // not logged in or not authorized
     if (!data.user_id) {
+      console.log("unauth")
       cb(data);
       return;
     }
 
     if (data.access_token || data.oauth_token) {
+      console.log("acc token", data.access_token, "auth token", data.oauth_token)
       cb(data);
       return;
     }
@@ -108,11 +113,15 @@ var FaceplateSession = function(plate, signed_request) {
   };
 
   this.me = function(cb) {
+    consoele.log("calling me path");
     if (self.token) {
+
       self.get('/me', function(err, me) {
+        console.log("me", me)
         cb(err,me);
       });
     } else {
+      console.log("no token to get me")
       cb(null,null);
     }
   };
@@ -137,6 +146,7 @@ var FaceplateSession = function(plate, signed_request) {
         request.on('success', function(data) {
           console.log("SUCCESS GET")
           var result = JSON.parse(JSON.stringify(data)); // <<<<
+          console.log("result inside get called from faceplate")
           cb(null, result);
         });
     } catch (err) {
