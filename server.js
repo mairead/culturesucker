@@ -75,7 +75,9 @@ function render_culture_page(req, res){
     req.facebook.me(function(user, test){
       res.render('culture.ejs', {
         layout:    false,
-        req:       req
+        req:       req,
+        app:       app,
+        user:      user
       });
     });
   });
