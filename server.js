@@ -38,10 +38,13 @@ function show_page(req, res){
 function display_keyword_form(req, res) {
   async.parallel([
     function(cb) {
-      var keyword = "sample"; //default value
-      keyword = req.body['keyword'];
+      var keyword = req.body['keyword'];
+      if(typeof keyword === 'undefined'){
+        keyword = "sample"; //default value
+      };
+      console.log("KEYWORD....", keyword);
       var url = 'http://www.culturegrid.org.uk/index/select/?q=' + keyword + '&wt=json&fq=pndsterms.thumbnail:[* TO *]'
-
+      console.log("URL....", url);
       request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           var imageUrl = "";
