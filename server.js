@@ -81,9 +81,12 @@ function render_page(req, res) {
       // if(test !== null){
       //   user = test;
       // }
+      req.username = "";
+      if(test !== null){
       var value = test;
       console.log("VARIABLE WITH VAL:", value); 
-      req.username = value.name 
+      req.username = value.name
+      } 
       //why is my user null? I have the token and the token is valid?
       res.render('index.ejs', {
         layout:    false,
