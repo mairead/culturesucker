@@ -15,18 +15,18 @@ var Faceplate = function(options) {
     return function(req, res, next) {
       if (req.body.signed_request) {
         self.parse_signed_request(req.body.signed_request, function(decoded_signed_request) {
-          console.log("signed request")
+          //console.log("signed request")
           req.facebook = new FaceplateSession(self, decoded_signed_request);
           next();
         });
       } else if (req.cookies["fbsr_" + self.app_id]) {
         self.parse_signed_request(req.cookies["fbsr_" + self.app_id], function(decoded_signed_request) {
-          console.log("cookie request")
+          //console.log("cookie request")
           req.facebook = new FaceplateSession(self, decoded_signed_request);
           next();
         });
       } else {
-        console.log("un-signed? request")
+        //console.log("un-signed? request")
         req.facebook = new FaceplateSession(self);
         next();
       }
@@ -57,13 +57,13 @@ var Faceplate = function(options) {
 
     // not logged in or not authorized
     if (!data.user_id) {
-      console.log("unauth")
+      //console.log("unauth")
       cb(data);
       return;
     }
 
     if (data.access_token || data.oauth_token) {
-      console.log("acc token", data.access_token, "auth token", data.oauth_token)
+      //console.log("acc token", data.access_token, "auth token", data.oauth_token)
       cb(data);
       return;
     }
@@ -79,12 +79,12 @@ var Faceplate = function(options) {
       redirect_uri:  '',
       code:          data.code
     };
-console.log("PARAMS...", params)
+      //console.log("PARAMS...", params)
     var request = restler.get('https://graph.facebook.com/oauth/access_token',
       { query:params });
 
     request.on('fail', function(data) {
-      console.log("FAILING TOKEN")
+      //console.log("FAILING TOKEN")
       var result = JSON.parse(JSON.stringify(data)); // <<<<
       cb(result);
     });
@@ -114,16 +114,16 @@ var FaceplateSession = function(plate, signed_request) {
 
 
   this.me = function(cb) {
-    console.log("calling me path inside faceplate: \n", "faceplate token: ", self.token);
+    //console.log("calling me path inside faceplate: \n", "faceplate token: ", self.token);
     if (self.token) {
 
       self.get('/me', function(err, me) {
-        console.log("me in callback of faceplate get me \n" , "me obj: ", me)
-        console.log("error in get when called by me", "'"+err+"'")
+        //console.log("me in callback of faceplate get me \n" , "me obj: ", me)
+        //console.log("error in get when called by me", "'"+err+"'")
         cb(err, me);
       });
     } else {
-      console.log("no token to get me")
+      //console.log("no token to get me")
       cb(null,null);
     }
   };
@@ -141,12 +141,12 @@ var FaceplateSession = function(plate, signed_request) {
         var request = restler.get('https://graph.facebook.com' + path,
           { query: params });
         request.on('fail', function(data) {
-          console.log("FAILING GET")
+          //console.log("FAILING GET")
           var result = JSON.parse(JSON.stringify(data)); // <<<<
           cb(result);
         });
         request.on('success', function(data) {
-          console.log("SUCCESS GET request made to facebook object")
+          //console.log("SUCCESS GET request made to facebook object")
           var result = JSON.parse(JSON.stringify(data)); // <<<<
           //console.log("result inside get called from faceplate: \n", "get result: ", result)
           cb(null, result);
