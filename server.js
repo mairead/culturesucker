@@ -240,7 +240,7 @@ function show_me_culture(req, res){
           console.log("new test", user, test)
         
         // query 4 likes and send them to the socket for this socket id
-        req.facebook.get('/'+test.username+'/likes', { limit: 4 }, function(likes) {
+        req.facebook.get('/me/likes', { limit: 4 }, function(null, likes) {
           req.likes = likes;
           console.log("likes cb returned in async", likes)
           cb(likes);

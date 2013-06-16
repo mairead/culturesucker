@@ -134,6 +134,8 @@ var FaceplateSession = function(plate, signed_request) {
       params = {};
     }
 
+    console.log("get vars: ", path, params, cb)
+
     if (self.token)
       params.access_token = self.token;
 
@@ -148,6 +150,7 @@ var FaceplateSession = function(plate, signed_request) {
         request.on('success', function(data) {
           //console.log("SUCCESS GET request made to facebook object")
           var result = JSON.parse(JSON.stringify(data)); // <<<<
+          console.log("result?")
           //console.log("result inside get called from faceplate: \n", "get result: ", result)
           cb(null, result);
         });
