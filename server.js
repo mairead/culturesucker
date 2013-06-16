@@ -76,7 +76,7 @@ function render_page(req, res) {
     console.log("ME?...", req.facebook.me);
     req.facebook.me(function(user) {
       console.log("USER?...", user);
-      //why is my user null?
+      //why is my user null? I have the toke and the token is valid?
       res.render('index.ejs', {
         layout:    false,
         req:       req,
@@ -149,7 +149,7 @@ function handle_facebook_request(req, res) {
     console.log("TOKEN...", req.facebook.token);
     async.parallel([
       function(cb) {
-        console.log("ASYNC FUNC")
+        console.log("ASYNC FUNC", req.facebook.get)
         // query 4 friends and send them to the socket for this socket id
         req.facebook.get('/me/friends', { limit: 4 }, function(friends) {
           console.log("INSIDE GET CALLBACK", friends);
