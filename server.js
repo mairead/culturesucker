@@ -250,13 +250,30 @@ function show_me_culture(req, res){
       console.log("likes cb returned", likes.data)
       req.likes = likes;
       req.firstLike = likes.data[0].name;
-      console.log("FIRST LIKE", req.firstLike)
+      
 
-      //add randomisation in here
+      var keywords = [];
+      //loop through every name item in likes returned
+      for (var i = likes.length - 1; i >= 0; i--) {
+        //split search terms into single word
+        var words = likes[i].name.split(" ");
+        console.log(words);
+          for (var i = words.length - 1; i >= 0; i--) {
+            keywords.push(words[i]);
+          };
+      };
+      
+        
+        //add randomisation in here
+
+      var randomPhrase = keywords[0];
+
+      console.log("RANDOM LIKE", randomPhrase);
+      req.randomLike = randomPhrase;
 
       async.parallel([
         function(cb) {
-          var keyword = req.firstLike
+          var keyword = randomPhrase
           if(typeof keyword === 'undefined'){
             keyword = "sample"; //default value
           };
@@ -281,6 +298,10 @@ function show_me_culture(req, res){
                 };
               };
             };
+
+            if(docsLength === 0){
+              console.log("nothing returned")
+            }
             //pack return values into an object
             var returnObj = {
               'title':itemTitle,
