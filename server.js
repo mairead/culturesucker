@@ -226,11 +226,12 @@ function show_me_culture(req, res){
         // query 4 likes and send them to the socket for this socket id
         req.facebook.get('/me/likes', { limit: 4 }, function(likes) {
           req.likes = likes;
+
           cb();
         });
       }
     ], function() {
-      console.log("likes cb returned")
+      console.log("likes cb returned", likes)
       render_culture_page(req, res);
     });
   } else {
