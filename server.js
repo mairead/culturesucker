@@ -74,7 +74,8 @@ function show_login(req, res){
 function render_page(req, res) {
   req.facebook.app(function(err, app) {
     console.log("calling me when inside render func")
-    req.facebook.me(function(err, user) {
+    //changing function sig breaks token? not sure why these things are connected
+    req.facebook.me(function(user) {
       //why isn't the user function callback params sig err, user? me is using get
       console.log("USER: ", user);
       //why is my user null? I have the toke and the token is valid?
