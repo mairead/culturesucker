@@ -247,22 +247,24 @@ function show_me_culture(req, res){
         })
       }
     ], function(likes) {
-      console.log("likes cb returned", likes.data)
+      //console.log("likes cb returned", likes.data)
       req.likes = likes;
       req.firstLike = likes.data[0].name;
       
+      var likesObj = likes.data
 
       var keywords = [];
       //loop through every name item in likes returned
-      for (var i = likes.length - 1; i >= 0; i--) {
+      for (var i = likesObj.length - 1; i >= 0; i--) {
         //split search terms into single word
-        var words = likes[i].name.split(" ");
+        var words = likesObj[i].name.split(/\W+/);
         console.log(words);
           for (var i = words.length - 1; i >= 0; i--) {
             keywords.push(words[i]);
           };
       };
       
+      console.log(keywords)
         
         //add randomisation in here
 
@@ -273,7 +275,7 @@ function show_me_culture(req, res){
 
       async.parallel([
         function(cb) {
-          var keyword = randomPhrase
+          var keyword = randomPhrase;
           if(typeof keyword === 'undefined'){
             keyword = "sample"; //default value
           };

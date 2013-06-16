@@ -61,6 +61,9 @@
 
     <p>My name is: <%= req.username %></p>
     <p>I really like: <%= req.randomLike %></p>
-    <p>Culturegrid wants to show me: </p>
+    <p>Culturegrid wants to show me something special</p>
+      <hr>
+      <h1><%= req.itemTitle %></h1>
+      <p><img src="<%= req.returnedImgUrl %>" /></p>
   </body>
 </html>
