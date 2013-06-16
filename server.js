@@ -239,7 +239,7 @@ function show_me_culture(req, res){
       function(cb) {
         req.facebook.me(function(user, test){
           console.log("new test", user, test)
-        }
+        })
         // query 4 likes and send them to the socket for this socket id
         req.facebook.get('/me/likes', { limit: 4 }, function(likes) {
           req.likes = likes;
