@@ -8,16 +8,15 @@ var app = express.createServer(
   express.logger(),
   express.static(__dirname + '/public'),
   express.bodyParser(),
-  express.cookieParser()
-  // ,
+  express.cookieParser(),
   // set this to a secret value to encrypt session cookies
   //this sets a dummy one to begin with and then creates new when a user session is begun I think
-  // express.session({ secret: process.env.SESSION_SECRET || 'secret123' }),
-  // require('faceplate').middleware({
-  //   app_id: '531423360247136',
-  //   secret: '931b2ad5ec86fadc83b8ca9594643ae6',
-  //   scope:  'user_likes,user_photos,user_photo_video_tags'
-  // })
+  express.session({ secret: process.env.SESSION_SECRET || 'secret123' }),
+  require('./faceplate').middleware({
+    app_id: '531423360247136',
+    secret: '931b2ad5ec86fadc83b8ca9594643ae6',
+    scope:  'user_likes,user_photos,user_photo_video_tags'
+  })
 
 );
 
