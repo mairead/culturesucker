@@ -89,6 +89,53 @@ function display_keyword_form(req, res) {
 
 //create FB authentication and retrieve user's likes to page
 function facebook_login(req, res){
+
+
+// facebook OAuth
+var qs = require('querystring')
+  , oauth =
+    { callback: 'https://127.0.0.1/facebooklogin/'
+    , consumer_key: '606213886069290'
+    , consumer_secret: 'b2320a32f4b39adf01cb80835cb0d231'
+    }
+  , url = 'https://www.facebook.com/dialog/oauth'
+  ;
+console.log(qs)
+// request.post({url:url, oauth:oauth}, function (e, r, body) {
+//   // Ideally, you would take the body in the response
+//   // and construct a URL that a user clicks on (like a sign in button).
+//   // The verifier is only available in the response after a user has 
+//   // verified with twitter that they are authorizing your app.
+//   var access_token = qs.parse(body)
+//     , oauth = 
+//       { consumer_key: '606213886069290'
+//       , consumer_secret: 'b2320a32f4b39adf01cb80835cb0d231'
+//       , token: access_token.oauth_token
+//       , verifier: access_token.oauth_verifier
+//       }
+//     , url = 'https://graph.facebook.com/oauth/access_token'
+//     ;
+//   request.post({url:url, oauth:oauth}, function (e, r, body) {
+//     var perm_token = qs.parse(body)
+//       , oauth = 
+//         { consumer_key: '606213886069290'
+//         , consumer_secret: 'b2320a32f4b39adf01cb80835cb0d231'
+//         , token: perm_token.oauth_token
+//         , token_secret: perm_token.oauth_token_secret
+//         }
+//       , url = 'https://graph.facebook.com/me?'
+//     //   , params = 
+//     //     { screen_name: perm_token.screen_name
+//     //     , user_id: perm_token.user_id
+//     //     }
+//     //   ;
+//     // url += qs.stringify(params)
+//     request.get({url:url, oauth:oauth, json:true}, function (e, r, user) {
+//       console.log(user)
+//     })
+//   })
+// })
+
   show_login(req, res);
 }
 
