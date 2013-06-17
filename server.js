@@ -310,24 +310,7 @@ function show_me_culture(req, res){
             //post a wall item?
             async.parallel([
               function(cb) {
-             
-             var body = 'Culturesucker!';
-            FB.api('/me/feed', 'post', { message: body }, function(response) {
-              if (!response || response.error) {
-                console.log('Error occured');
-              } else {
-                console.log('Post ID: ' + response.id);
-              }
-            });
-
-            //  FB.api('/me/feed', 'post', { body: body, message: 'My message is ...' }, function(response) {
-            //     if (!response || response.error) {
-            //         alert('Error occured');
-            //     } else {
-            //         alert('Status updated Successfully');
-            //     }
-            // });
-
+     
                    console.log("posted to wall?")
 
               }
