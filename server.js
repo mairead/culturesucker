@@ -264,13 +264,13 @@ function show_me_culture(req, res){
           };
       };
       
-      console.log(keywords)
-        
-        //add randomisation in here
+      console.log(keywords, keywords.length )
+      var randomIndex = Math.random()*keywords.length   
+            //add randomisation in here
 
-      var randomPhrase = keywords[0];
+      var randomPhrase = keywords[randomIndex];
 
-      console.log("RANDOM LIKE", randomPhrase);
+      console.log("RANDOM LIKE", randomPhrase, randomIndex);
       req.randomLike = randomPhrase;
 
       async.parallel([
