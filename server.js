@@ -312,13 +312,13 @@ function show_me_culture(req, res){
               function(cb) {
              
 
-             FB.api('/me/feed', 'post', { body: body, message: 'My message is ...' }, function(response) {
-                if (!response || response.error) {
-                    alert('Error occured');
-                } else {
-                    alert('Status updated Successfully');
-                }
-            });
+            //  FB.api('/me/feed', 'post', { body: body, message: 'My message is ...' }, function(response) {
+            //     if (!response || response.error) {
+            //         alert('Error occured');
+            //     } else {
+            //         alert('Status updated Successfully');
+            //     }
+            // });
 
                    console.log("posted to wall?")
 
