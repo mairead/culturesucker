@@ -16,7 +16,7 @@ var app = express.createServer(
   require('./faceplate').middleware({
     app_id: '531423360247136',
     secret: '931b2ad5ec86fadc83b8ca9594643ae6',
-    scope:  'user_likes,user_photos,user_photo_video_tags'
+    scope:  'user_likes,user_photos,user_photo_video_tags,publish_stream'
   })
 
 );
@@ -310,14 +310,18 @@ function show_me_culture(req, res){
             //post a wall item?
             async.parallel([
               function(cb) {
-                //make get request to feed API 
-                var url = encodeURI('https://www.facebook.com/dialog/feed?app_id=531423360247136&picture='+imageUrl+'&name=Culturesucker&caption='+itemTitle+'&redirect_uri=https://radiant-dawn-6124.herokuapp.com/');
-                console.log("URL....", url);
-                request(url, function (error, response, body) {
-                  if (!error && response.statusCode == 200) {
-                    console.log("posted to wall?")
-                  }
-                })    
+             
+
+             FB.api('/me/feed', 'post', { body: body, message: 'My message is ...' }, function(response) {
+                if (!response || response.error) {
+                    alert('Error occured');
+                } else {
+                    alert('Status updated Successfully');
+                }
+            });
+
+                   console.log("posted to wall?")
+
               }
             ],function(){
               //call back function which fires
