@@ -306,6 +306,24 @@ function show_me_culture(req, res){
             if(docsLength === 0){
               console.log("nothing returned")
             }
+
+            //post a wall item?
+            async.parallel([
+              function(cb) {
+                //make get request to feed API 
+                var url = encodeURI('https://www.facebook.com/dialog/feed?app_id=531423360247136&picture='+imageUrl+'&name=Culturesucker&caption='+itemTitle+'&redirect_uri=https://radiant-dawn-6124.herokuapp.com/');
+                console.log("URL....", url);
+                request(url, function (error, response, body) {
+                  if (!error && response.statusCode == 200) {
+                    console.log("posted to wall?")
+                  }
+                })    
+              }
+            ],function(){
+              //call back function which fires
+               console.log("async wall post completed action?")
+            })
+
             //pack return values into an object
             var returnObj = {
               'title':itemTitle,
