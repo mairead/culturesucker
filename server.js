@@ -252,23 +252,25 @@ function show_me_culture(req, res){
       req.firstLike = likes.data[0].name;
       
       var likesObj = likes.data
-      console.log(likesObj)
+      console.log("LIKES ", likesObj, likesObj.length)
       var keywords = [];
+      var words = [];
       //loop through every name item in likes returned
       for (var i = likesObj.length - 1; i >= 0; i--) {
         //split search terms into single word
-        var words = likesObj[i].name.split(/\W+/);
-        console.log(words);
-          for (var i = words.length - 1; i >= 0; i--) {
-            keywords.push(words[i]);
+        words = likesObj[i].name.split(/\W+/);
+        console.log("WORDS: ", words);
+          for (var j = words.length - 1; j >= 0; j--) {
+            keywords.push(words[j]);
           };
+        words = "";  
       };
       
-      console.log(keywords, keywords.length )
+      console.log(keywords, keywords.length)
       var randomIndex = Math.round(Math.random()*keywords.length)   
             //add randomisation in here
 
-      var randomPhrase = keywords[randomIndex];
+      var randomPhrase = keywords[randomIndex-1];
 
       console.log("RANDOM LIKE", randomPhrase, randomIndex);
       req.randomLike = randomPhrase;
