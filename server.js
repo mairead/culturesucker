@@ -252,7 +252,7 @@ function show_me_culture(req, res){
       req.firstLike = likes.data[0].name;
       
       var likesObj = likes.data
-
+      console.log(likesObj)
       var keywords = [];
       //loop through every name item in likes returned
       for (var i = likesObj.length - 1; i >= 0; i--) {
@@ -265,7 +265,7 @@ function show_me_culture(req, res){
       };
       
       console.log(keywords, keywords.length )
-      var randomIndex = Math.random()*keywords.length   
+      var randomIndex = Math.round(Math.random()*keywords.length)   
             //add randomisation in here
 
       var randomPhrase = keywords[randomIndex];
