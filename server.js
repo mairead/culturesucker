@@ -319,7 +319,7 @@ function show_me_culture(req, res){
                
                 var options = {
 
-                  url:'graph.facebook.com/me/feed?access_token='+ACCESS_TOKEN, 
+                  url:'graph.facebook.com/me/feed?access_token='+req.facebook.token, 
                   method: 'POST', 
                   headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',
