@@ -312,26 +312,26 @@ function show_me_culture(req, res){
               function(cb) {
 
 
-                var data = {
-                  message: "this is a test post"
-                }
+                // var data = {
+                //   message: "this is a test post"
+                // }
 
-                var options = {
+                // var options = {
 
-                  url:'http://graph.facebook.com/culturesucker/feed', 
-                  method: 'POST', 
-                  headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            'Content-Length': data.length
-                        },
-                  oauth = { callback: 'https://radiant-dawn-6124.herokuapp.com/cultureme/'
-                        , consumer_key: '531423360247136'
-                        , consumer_secret: '931b2ad5ec86fadc83b8ca9594643ae6'
-                          }
+                //   url:'http://graph.facebook.com/culturesucker/feed', 
+                //   method: 'POST', 
+                //   headers: {
+                //             'Content-Type': 'application/x-www-form-urlencoded',
+                //             'Content-Length': data.length
+                //         },
+                //   oauth = { callback: 'https://radiant-dawn-6124.herokuapp.com/cultureme/'
+                //         , consumer_key: '531423360247136'
+                //         , consumer_secret: '931b2ad5ec86fadc83b8ca9594643ae6'
+                //           }
 
-                }
-                request.post(options)
-                   console.log("posted to wall?")
+                // }
+                // request.post(options)
+                //    console.log("posted to wall?")
 
               }
             ],function(){
