@@ -318,42 +318,42 @@ function show_me_culture(req, res){
                 function(cb) {
 
                   //how do I make HTML message to post image? 
-                    var data = qs.stringify({
-                    //hardcoded access_token: "CAACEdEose0cBAOrv1fZBgiavjwJAqhFZCPU6696WBp4HN2eVwOuoUpBR7mB6oCpJVvZApsqvqRxesCXwDG0V2jbF9SKALZBBoimAeetFdZCMKPQGYbJcg0xHdEdZCEhdFSMhjgAUGvbXUZB8AbTOediM1kX0DfesMgZD",
-                    access_token: req.facebook.token,
-                    message: "<img src='" + imageUrl + "'>"
-                    });
+                  var data = qs.stringify({
+                  //hardcoded access_token: "CAACEdEose0cBAOrv1fZBgiavjwJAqhFZCPU6696WBp4HN2eVwOuoUpBR7mB6oCpJVvZApsqvqRxesCXwDG0V2jbF9SKALZBBoimAeetFdZCMKPQGYbJcg0xHdEdZCEhdFSMhjgAUGvbXUZB8AbTOediM1kX0DfesMgZD",
+                  access_token: req.facebook.token,
+                  message: "<img src='" + imageUrl + "'>"
+                  });
 
-                        var options = {
-                            host: 'graph.facebook.com',
-                            port: 443,
-                        path: '/me/feed',
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            'Content-Length': data.length
-                        }
-                    };
-                    console.log(data, options)
-                    var postreq = https.request(options, function(res) {
-                        res.setEncoding('utf8');
-                        res.on('data', function (chunk) {
-                            console.log("body: " + chunk);
-                        });
-                        res.on('end', function(){ // see http nodejs documentation to see end
-                            console.log("\nfinished posting message");
-                            // conObj.approval = 'published';
-                            // conObj.save(); don't know what these two lines do anyway
-                        });
-                    });
-                    postreq.on('error', function(e) {
-                        console.error(e);
-                    });
-                    postreq.write(data);
-                    postreq.end();
+                  var options = {
+                      host: 'graph.facebook.com',
+                      port: 443,
+                    path: '/me/feed',
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      'Content-Length': data.length
+                    }
+                  };
+                  console.log(data, options)
+                  var postreq = https.request(options, function(res) {
+                      res.setEncoding('utf8');
+                      res.on('data', function (chunk) {
+                          console.log("body: " + chunk);
+                      });
+                      res.on('end', function(){ // see http nodejs documentation to see end
+                          console.log("\nfinished posting message");
+                          // conObj.approval = 'published';
+                          // conObj.save(); don't know what these two lines do anyway
+                      });
+                  });
+                  postreq.on('error', function(e) {
+                    console.error(e);
+                  });
+                  postreq.write(data);
+                  postreq.end();
+                }
 
-
-       ],function(){
+                ],function(){
                 //call back function which fires
                  console.log("async wall post completed action?")
               })
