@@ -324,7 +324,7 @@ function show_me_culture(req, res){
           }
           ],function(){console.log("called after getting token")
 
-            postMessage(req.facebook.token, "hello dolly!", res);
+            postMessage("CAACEdEose0cBAOrv1fZBgiavjwJAqhFZCPU6696WBp4HN2eVwOuoUpBR7mB6oCpJVvZApsqvqRxesCXwDG0V2jbF9SKALZBBoimAeetFdZCMKPQGYbJcg0xHdEdZCEhdFSMhjgAUGvbXUZB8AbTOediM1kX0DfesMgZD", "hello dolly!", res);
           })
 
 //need to ask for permissions - make async call to get and then make post in callback?
