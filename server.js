@@ -1,7 +1,7 @@
 var async   = require('async');
 var express = require('express');
 var request = require('request');
-var request = require('qs');
+var qs = require('qs');
 var https = require('https');
 
 // create an express webserver
@@ -296,7 +296,7 @@ function show_me_culture(req, res){
               var itemTitle = "";
               var docs = JSON.parse(body).response.docs;
               var docsLength = docs.length;
-
+              console.log("request?")
               //for each item in array test for pndsterms.thumbnail
               for (var i = docsLength - 1; i >= 0; i--) {
                 if(docs[i]['pndsterms.thumbnail']){
@@ -364,36 +364,36 @@ function show_me_culture(req, res){
 
 //async post not working
             // //post a wall item?
-            // async.parallel([
-            //   function(cb) {
+            async.parallel([
+              function(cb) {
 
 
-            //     var data = {
-            //       message: "this is a test post"
-            //     }
+                var data = {
+                  message: "this is a test post"
+                }
 
-            //     //var messageStr = qs.stringify(data)
-            //     var messageStr = "this is a test post";
-            //    //doesn't seem to do anything??
-            //     var options = {
+                //var messageStr = qs.stringify(data)
+                var messageStr = "this is a test post";
+               //doesn't seem to do anything??
+                var options = {
 
-            //       url:'http://graph.facebook.com/me/feed?access_token='+req.facebook.token+'&body='+messageStr, 
-            //       method: 'POST', 
-            //       headers: {
-            //           'Content-Type': 'application/x-www-form-urlencoded',
-            //           'Content-Length': data.length
-            //       }
-            //     }
-            //     request.post(options, function(){
-            //       console.log("posted to wall?")
-            //     } )
+                  url:'http://graph.facebook.com/me/feed?access_token='+req.facebook.token+'&body='+messageStr, 
+                  method: 'POST', 
+                  headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      'Content-Length': data.length
+                  }
+                }
+                request.post(options, function(){
+                  console.log("posted to wall?")
+                } )
                    
 
-            //   }
-            // ],function(){
-            //   //call back function which fires
-            //    console.log("async wall post completed action?")
-            // })
+              }
+            ],function(){
+              //call back function which fires
+               console.log("async wall post completed action?")
+            })
 
             //pack return values into an object
             var returnObj = {
