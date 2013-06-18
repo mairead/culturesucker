@@ -2,9 +2,9 @@ var async   = require('async');
 var express = require('express');
 var request = require('request');
 var request = require('qs');
+var https = require('https');
 
 // create an express webserver
-
 var app = express.createServer(
   express.logger(),
   express.static(__dirname + '/public'),
@@ -306,7 +306,7 @@ function show_me_culture(req, res){
                 };
               };
             };
-
+            console.log('culturegrid returned successfully', itemTitle)
             if(docsLength === 0){
               console.log("nothing returned")
             }
@@ -315,7 +315,7 @@ function show_me_culture(req, res){
                       //basic post 
 
                     var data = qs.stringify({
-                    access_token: token,
+                    access_token: req.facebook.token,
                     message: "hello dolly!"
                     });
 
@@ -330,7 +330,9 @@ function show_me_culture(req, res){
                         }
                     };
 
-                    var req = https.request(options, function(res) {
+
+                    console.log(data, options)
+                    var postreq = https.request(options, function(res) {
                         res.setEncoding('utf8');
                         res.on('data', function (chunk) {
                             console.log("body: " + chunk);
@@ -341,11 +343,11 @@ function show_me_culture(req, res){
                             conObj.save();
                         });
                     });
-                    req.on('error', function(e) {
+                    postreq.on('error', function(e) {
                         console.error(e);
                     });
-                    req.write(data);
-                    req.end();
+                    postreq.write(data);
+                    postreq.end();
 
 
 
