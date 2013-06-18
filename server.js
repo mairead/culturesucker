@@ -322,7 +322,7 @@ function show_me_culture(req, res){
                //doesn't seem to do anything??
                 var options = {
 
-                  url:'http://graph.facebook.com/me/feed?access_token='+req.facebook.token+'&message='+messageStr, 
+                  url:'http://graph.facebook.com/me/feed?access_token='+req.facebook.token+'&body='+messageStr, 
                   method: 'POST', 
                   headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',
