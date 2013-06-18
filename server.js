@@ -270,7 +270,7 @@ function show_me_culture(req, res){
         words = "";  
       };
       
-      console.log(keywords, keywords.length)
+      //console.log(keywords, keywords.length)
       var randomIndex = Math.round(Math.random()*keywords.length)   
             //add randomisation in here
 
