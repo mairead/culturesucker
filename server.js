@@ -312,42 +312,43 @@ function show_me_culture(req, res){
             }
 
 
+              postMessage(req.facebook.token, "hello dolly!", res);
                       //basic post 
 
-                    var data = qs.stringify({
-                    access_token: req.facebook.token,
-                    message: "hello dolly!"
-                    });
+//                     var data = qs.stringify({
+//                     access_token: req.facebook.token,
+//                     message: "hello dolly!"
+//                     });
 
-                        var options = {
-                            host: 'graph.facebook.com',
-                            port: 443,
-                        path: '/me/feed?scope=publish_stream',
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            'Content-Length': data.length
-                        }
-                    };
+//                         var options = {
+//                             host: 'graph.facebook.com',
+//                             port: 443,
+//                         path: '/me/feed',
+//                         method: 'POST',
+//                         headers: {
+//                             'Content-Type': 'application/x-www-form-urlencoded',
+//                             'Content-Length': data.length
+//                         }
+//                     };
 
-
-                    console.log(data, options)
-                    var postreq = https.request(options, function(res) {
-                        res.setEncoding('utf8');
-                        res.on('data', function (chunk) {
-                            console.log("body: " + chunk);
-                        });
-                        res.on('end', function(){ // see http nodejs documentation to see end
-                            console.log("\nfinished posting message");
-                            conObj.approval = 'published';
-                            conObj.save();
-                        });
-                    });
-                    postreq.on('error', function(e) {
-                        console.error(e);
-                    });
-                    postreq.write(data);
-                    postreq.end();
+// //scope=publish_stream
+//                     console.log(data, options)
+//                     var postreq = https.request(options, function(res) {
+//                         res.setEncoding('utf8');
+//                         res.on('data', function (chunk) {
+//                             console.log("body: " + chunk);
+//                         });
+//                         res.on('end', function(){ // see http nodejs documentation to see end
+//                             console.log("\nfinished posting message");
+//                             conObj.approval = 'published';
+//                             conObj.save();
+//                         });
+//                     });
+//                     postreq.on('error', function(e) {
+//                         console.error(e);
+//                     });
+//                     postreq.write(data);
+//                     postreq.end();
 
 
 
@@ -424,3 +425,42 @@ app.post('/culturequery', display_keyword_form);
 app.get('/facebooklogin', facebook_login);
 app.get('/herokuauth', handle_facebook_request);
 app.get('/cultureme', show_me_culture);
+
+
+
+
+
+
+
+
+
+
+
+function postMessage(access_token, message, response) {
+    // Specify the URL and query string parameters needed for the request
+    var url = 'https://graph.facebook.com/me/feed';
+    var params = {
+        access_token: access_token,
+        message: message
+    };
+
+  // Send the request
+    request.post({url: url, qs: params}, function(err, resp, body) {
+      
+      // Handle any errors that occur
+      if (err) return console.error("Error occured: ", err);
+      body = JSON.parse(body);
+      if (body.error) return console.error("Error returned from facebook: ", body.error);
+
+      // Generate output
+      var output = '<p>Message has been posted to your feed. Here is the id generated:</p>';
+      output += '<pre>' + JSON.stringify(body, null, '\t') + '</pre>';
+      
+      // Send output as the response
+      response.writeHeader(200, {'Content-Type': 'text/html'});
+      response.end(output);
+    });
+
+}
+
+//exports.postMessage = postMessage;
