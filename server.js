@@ -310,8 +310,8 @@ function show_me_culture(req, res){
             if(docsLength === 0){
               console.log("nothing returned")
             }
-
-            //post a wall item?
+//async post not working
+            // //post a wall item?
             async.parallel([
               function(cb) {
 
@@ -326,13 +326,13 @@ function show_me_culture(req, res){
                 var options = {
 
                   url:'http://graph.facebook.com/me/feed?access_token='+req.facebook.token+'&body='+messageStr, 
-                  method: 'POST', 
+                  method: 'GET', 
                   headers: {
                       'Content-Type': 'application/x-www-form-urlencoded',
                       'Content-Length': data.length
                   }
                 }
-                request.post(options, function(){
+                request(options, function(){
                   console.log("posted to wall?")
                 } )
                    
