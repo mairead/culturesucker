@@ -314,40 +314,40 @@ function show_me_culture(req, res){
 
                       //basic post 
 
-                    var data = qs.stringify({
-                    access_token: req.facebook.token,
-                    message: "hello dolly!"
-                    });
+                    // var data = qs.stringify({
+                    // access_token: req.facebook.token,
+                    // message: "hello dolly!"
+                    // });
 
-                        var options = {
-                            host: 'graph.facebook.com',
-                            port: 443,
-                        path: '/me/feed',
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            'Content-Length': data.length
-                        }
-                    };
+                    //     var options = {
+                    //         host: 'graph.facebook.com',
+                    //         port: 443,
+                    //     path: '/me/feed',
+                    //     method: 'POST',
+                    //     headers: {
+                    //         'Content-Type': 'application/x-www-form-urlencoded',
+                    //         'Content-Length': data.length
+                    //     }
+                    // };
 
 
-                    console.log(data, options)
-                    var postreq = https.request(options, function(res) {
-                        res.setEncoding('utf8');
-                        res.on('data', function (chunk) {
-                            console.log("body: " + chunk);
-                        });
-                        res.on('end', function(){ // see http nodejs documentation to see end
-                            console.log("\nfinished posting message");
-                            conObj.approval = 'published';
-                            conObj.save();
-                        });
-                    });
-                    postreq.on('error', function(e) {
-                        console.error(e);
-                    });
-                    postreq.write(data);
-                    postreq.end();
+                    // console.log(data, options)
+                    // var postreq = https.request(options, function(res) {
+                    //     res.setEncoding('utf8');
+                    //     res.on('data', function (chunk) {
+                    //         console.log("body: " + chunk);
+                    //     });
+                    //     res.on('end', function(){ // see http nodejs documentation to see end
+                    //         console.log("\nfinished posting message");
+                    //         conObj.approval = 'published';
+                    //         conObj.save();
+                    //     });
+                    // });
+                    // postreq.on('error', function(e) {
+                    //     console.error(e);
+                    // });
+                    // postreq.write(data);
+                    // postreq.end();
 
 
 
