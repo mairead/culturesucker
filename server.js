@@ -253,16 +253,19 @@ function show_me_culture(req, res){
       req.firstLike = likes.data[0].name;
       
       var likesObj = likes.data
-      console.log("LIKES ", likesObj, likesObj.length)
+      //console.log("LIKES ", likesObj, likesObj.length)
       var keywords = [];
       var words = [];
       //loop through every name item in likes returned
       for (var i = likesObj.length - 1; i >= 0; i--) {
         //split search terms into single word
         words = likesObj[i].name.split(/\W+/);
-        console.log("WORDS: ", words);
+        //console.log("WORDS: ", words);
           for (var j = words.length - 1; j >= 0; j--) {
-            keywords.push(words[j]);
+            if(words[j] !== " " ||words[j] !== "s" ||words[j] !== "a" ||words[j] !== "the" ||words[j] !== "and"){
+              keywords.push(words[j]);
+            }
+            
           };
         words = "";  
       };
@@ -318,19 +321,21 @@ function show_me_culture(req, res){
                 }
 
                 //var messageStr = qs.stringify(data)
-var messageStr = "this is a test post";
+                var messageStr = "this is a test post";
                //doesn't seem to do anything??
                 var options = {
 
                   url:'http://graph.facebook.com/me/feed?access_token='+req.facebook.token+'&body='+messageStr, 
                   method: 'POST', 
                   headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            'Content-Length': data.length
-                        }
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      'Content-Length': data.length
+                  }
                 }
-                request.post(options )
-                   console.log("posted to wall?")
+                request.post(options, function(){
+                  console.log("posted to wall?")
+                } )
+                   
 
               }
             ],function(){
