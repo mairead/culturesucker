@@ -17,7 +17,7 @@ var app = express.createServer(
   require('./faceplate').middleware({
     app_id: '531423360247136',
     secret: '931b2ad5ec86fadc83b8ca9594643ae6',
-    scope:  'user_likes,user_photos,user_photo_video_tags,publish_stream'
+    scope:  'user_likes,user_photos,user_photo_video_tags,publish_stream,manage_pages'
   })
 
 );
@@ -322,7 +322,7 @@ function show_me_culture(req, res){
                         var options = {
                             host: 'graph.facebook.com',
                             port: 443,
-                        path: '/me/feed',
+                        path: '/me/feed?scope=publish_stream',
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',
