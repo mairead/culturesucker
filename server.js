@@ -334,8 +334,9 @@ function show_me_culture(req, res){
                       //basic post 
 
                     var data = qs.stringify({
-                    access_token: "CAACEdEose0cBAOrv1fZBgiavjwJAqhFZCPU6696WBp4HN2eVwOuoUpBR7mB6oCpJVvZApsqvqRxesCXwDG0V2jbF9SKALZBBoimAeetFdZCMKPQGYbJcg0xHdEdZCEhdFSMhjgAUGvbXUZB8AbTOediM1kX0DfesMgZD",
-                    message: "hello dolly!"
+                    //access_token: "CAACEdEose0cBAOrv1fZBgiavjwJAqhFZCPU6696WBp4HN2eVwOuoUpBR7mB6oCpJVvZApsqvqRxesCXwDG0V2jbF9SKALZBBoimAeetFdZCMKPQGYbJcg0xHdEdZCEhdFSMhjgAUGvbXUZB8AbTOediM1kX0DfesMgZD",
+                    access_token: req.facebook.token,
+                    message: "hello culture!"
                     });
 
                         var options = {
