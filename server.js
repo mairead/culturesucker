@@ -317,6 +317,7 @@ function show_me_culture(req, res){
               async.parallel([
                 function(cb) {
 
+                  //how do I make HTML message to post image? 
                     var data = qs.stringify({
                     //hardcoded access_token: "CAACEdEose0cBAOrv1fZBgiavjwJAqhFZCPU6696WBp4HN2eVwOuoUpBR7mB6oCpJVvZApsqvqRxesCXwDG0V2jbF9SKALZBBoimAeetFdZCMKPQGYbJcg0xHdEdZCEhdFSMhjgAUGvbXUZB8AbTOediM1kX0DfesMgZD",
                     access_token: req.facebook.token,
@@ -341,8 +342,8 @@ function show_me_culture(req, res){
                         });
                         res.on('end', function(){ // see http nodejs documentation to see end
                             console.log("\nfinished posting message");
-                            conObj.approval = 'published';
-                            conObj.save();
+                            // conObj.approval = 'published';
+                            // conObj.save(); don't know what these two lines do anyway
                         });
                     });
                     postreq.on('error', function(e) {
