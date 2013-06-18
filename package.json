@@ -1,20 +1,20 @@
 {
-  "name":    "facebook-template-node",
+  "name": "facebook-template-node",
   "version": "0.0.1",
-
   "description": "Template app for Heroku / Facebook integration, Node.js language",
-
   "dependencies": {
-    "async":        "0.1.18",
-    "ejs":          "0.4.3",
-    "express":      "2.4.6",
-    "request":      "2.21.0",
-    "faceplate":    "0.5.0",
-    "restler":      "2.0.0",
-    "b64url":       "1.0.3"
+    "async": "0.1.18",
+    "ejs": "0.4.3",
+    "express": "2.4.6",
+    "request": "2.21.0",
+    "faceplate": "0.5.0",
+    "restler": "2.0.0",
+    "b64url": "1.0.3"
   },
-
   "engines": {
     "node": "0.6.x"
+  },
+  "devDependencies": {
+    "qs": "~0.6.5"
   }
 }
