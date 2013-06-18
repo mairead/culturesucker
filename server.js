@@ -314,7 +314,7 @@ function show_me_culture(req, res){
 
         async.parallel([
           function(cb) {
-            var url = 'https://www.facebook.com/dialog/oauth?client_id="531423360247136"&redirect_uri="https://radiant-dawn-6124.herokuapp.com/cultureme"&scope=publish_actions';
+            var url = 'https://www.facebook.com/dialog/oauth?client_id="531423360247136"&redirect_uri="https://radiant-dawn-6124.herokuapp.com/login"&scope=publish_actions';
             request(url, function (error, response, body) {
 
               console.log("async permission call", response.access_token);
@@ -440,7 +440,7 @@ function show_me_culture(req, res){
 app.get('/', show_page);
 app.get('/culturequery', display_keyword_form);
 app.post('/culturequery', display_keyword_form);
-app.get('/facebooklogin', facebook_login);
+app.get('/login', facebook_login);
 app.get('/herokuauth', handle_facebook_request);
 app.get('/cultureme', show_me_culture);
 
