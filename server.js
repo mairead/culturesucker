@@ -317,8 +317,8 @@ function show_me_culture(req, res){
                   message: "this is a test post"
                 }
 
-                var messageStr = qs.stringify(data)
-
+                //var messageStr = qs.stringify(data)
+var messageStr = "this is a test post";
                //doesn't seem to do anything??
                 var options = {
 
