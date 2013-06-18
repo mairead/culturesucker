@@ -233,7 +233,7 @@ function handle_facebook_request(req, res) {
 
 //controller to present culturegrid item from likes
 function show_me_culture(req, res){
-  //console.log("token>?", req.facebook.token)
+  console.log("token>?", req.facebook.token)
   if (req.facebook.token) {
     async.parallel([
       function(cb) {
