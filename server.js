@@ -317,10 +317,13 @@ function show_me_culture(req, res){
             var url = 'https://www.facebook.com/dialog/oauth?client_id="531423360247136"&redirect_uri="https://radiant-dawn-6124.herokuapp.com/cultureme"&scope=publish_actions';
             request(url, function (error, response, body) {
 
-              console.log("async permission call")
+              console.log("async permission call", response.access_token);
+
+              //can I parse new token out of body?
             })
           }
-          ],function(){
+          ],function(){console.log("called after getting token")
+
             postMessage(req.facebook.token, "hello dolly!", res);
           })
 
