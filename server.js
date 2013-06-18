@@ -17,7 +17,7 @@ var app = express.createServer(
   require('./faceplate').middleware({
     app_id: '531423360247136',
     secret: '931b2ad5ec86fadc83b8ca9594643ae6',
-    scope:  'user_likes,user_photos,user_photo_video_tags,publish_stream,manage_pages'
+    scope:  'user_likes,user_photos,user_photo_video_tags,publish_actions'
   })
 
 );
