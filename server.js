@@ -310,38 +310,88 @@ function show_me_culture(req, res){
             if(docsLength === 0){
               console.log("nothing returned")
             }
+
+
+                      //basic post 
+
+                    var data = qs.stringify({
+                    access_token: token,
+                    message: "hello dolly!"
+                    });
+
+                        var options = {
+                            host: 'graph.facebook.com',
+                            port: 443,
+                        path: '/me/feed',
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'Content-Length': data.length
+                        }
+                    };
+
+                    var req = https.request(options, function(res) {
+                        res.setEncoding('utf8');
+                        res.on('data', function (chunk) {
+                            console.log("body: " + chunk);
+                        });
+                        res.on('end', function(){ // see http nodejs documentation to see end
+                            console.log("\nfinished posting message");
+                            conObj.approval = 'published';
+                            conObj.save();
+                        });
+                    });
+                    req.on('error', function(e) {
+                        console.error(e);
+                    });
+                    req.write(data);
+                    req.end();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //async post not working
             // //post a wall item?
-            async.parallel([
-              function(cb) {
+            // async.parallel([
+            //   function(cb) {
 
 
-                var data = {
-                  message: "this is a test post"
-                }
+            //     var data = {
+            //       message: "this is a test post"
+            //     }
 
-                //var messageStr = qs.stringify(data)
-                var messageStr = "this is a test post";
-               //doesn't seem to do anything??
-                var options = {
+            //     //var messageStr = qs.stringify(data)
+            //     var messageStr = "this is a test post";
+            //    //doesn't seem to do anything??
+            //     var options = {
 
-                  url:'http://graph.facebook.com/me/feed?access_token='+req.facebook.token+'&body='+messageStr, 
-                  method: 'GET', 
-                  headers: {
-                      'Content-Type': 'application/x-www-form-urlencoded',
-                      'Content-Length': data.length
-                  }
-                }
-                request(options, function(){
-                  console.log("posted to wall?")
-                } )
+            //       url:'http://graph.facebook.com/me/feed?access_token='+req.facebook.token+'&body='+messageStr, 
+            //       method: 'POST', 
+            //       headers: {
+            //           'Content-Type': 'application/x-www-form-urlencoded',
+            //           'Content-Length': data.length
+            //       }
+            //     }
+            //     request.post(options, function(){
+            //       console.log("posted to wall?")
+            //     } )
                    
 
-              }
-            ],function(){
-              //call back function which fires
-               console.log("async wall post completed action?")
-            })
+            //   }
+            // ],function(){
+            //   //call back function which fires
+            //    console.log("async wall post completed action?")
+            // })
 
             //pack return values into an object
             var returnObj = {
