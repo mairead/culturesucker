@@ -233,7 +233,7 @@ function handle_facebook_request(req, res) {
 
 //controller to present culturegrid item from likes
 function show_me_culture(req, res){
-  console.log("token>?", req.facebook.token)
+  //console.log("token>?", req.facebook.token)
   if (req.facebook.token) {
     async.parallel([
       function(cb) {
@@ -288,7 +288,7 @@ function show_me_culture(req, res){
           console.log("KEYWORD....", keyword);
           var filter = "pndsterms.thumbnail:[* TO *]";
           var url = encodeURI('http://www.culturegrid.org.uk/index/select/?q=' + keyword + '&wt=json&fq='+filter);
-          console.log("URL....", url);
+          //console.log("URL....", url);
           request(url, function (error, response, body) {
             if (!error && response.statusCode == 200) {
               var imageUrl = "";
