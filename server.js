@@ -314,40 +314,40 @@ function show_me_culture(req, res){
 
                       //basic post 
 
-                    // var data = qs.stringify({
-                    // access_token: req.facebook.token,
-                    // message: "hello dolly!"
-                    // });
+                    var data = qs.stringify({
+                    access_token: req.facebook.token,
+                    message: "hello dolly!"
+                    });
 
-                    //     var options = {
-                    //         host: 'graph.facebook.com',
-                    //         port: 443,
-                    //     path: '/me/feed',
-                    //     method: 'POST',
-                    //     headers: {
-                    //         'Content-Type': 'application/x-www-form-urlencoded',
-                    //         'Content-Length': data.length
-                    //     }
-                    // };
+                        var options = {
+                            host: 'graph.facebook.com',
+                            port: 443,
+                        path: '/me/feed',
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'Content-Length': data.length
+                        }
+                    };
 
 
-                    // console.log(data, options)
-                    // var postreq = https.request(options, function(res) {
-                    //     res.setEncoding('utf8');
-                    //     res.on('data', function (chunk) {
-                    //         console.log("body: " + chunk);
-                    //     });
-                    //     res.on('end', function(){ // see http nodejs documentation to see end
-                    //         console.log("\nfinished posting message");
-                    //         conObj.approval = 'published';
-                    //         conObj.save();
-                    //     });
-                    // });
-                    // postreq.on('error', function(e) {
-                    //     console.error(e);
-                    // });
-                    // postreq.write(data);
-                    // postreq.end();
+                    console.log(data, options)
+                    var postreq = https.request(options, function(res) {
+                        res.setEncoding('utf8');
+                        res.on('data', function (chunk) {
+                            console.log("body: " + chunk);
+                        });
+                        res.on('end', function(){ // see http nodejs documentation to see end
+                            console.log("\nfinished posting message");
+                            conObj.approval = 'published';
+                            conObj.save();
+                        });
+                    });
+                    postreq.on('error', function(e) {
+                        console.error(e);
+                    });
+                    postreq.write(data);
+                    postreq.end();
 
 
 
@@ -364,36 +364,36 @@ function show_me_culture(req, res){
 
 //async post not working
             // //post a wall item?
-            async.parallel([
-              function(cb) {
+            // async.parallel([
+            //   function(cb) {
 
 
-                var data = {
-                  message: "this is a test post"
-                }
+            //     var data = {
+            //       message: "this is a test post"
+            //     }
 
-                var messageStr = qs.stringify(data)
-                //var messageStr = "this is a test post";
-               //doesn't seem to do anything??
-                var options = {
+            //     var messageStr = qs.stringify(data)
+            //     //var messageStr = "this is a test post";
+            //    //doesn't seem to do anything??
+            //     var options = {
 
-                  url:'http://graph.facebook.com/me/feed?access_token='+req.facebook.token+'&body='+messageStr, 
-                  method: 'POST', 
-                  headers: {
-                      'Content-Type': 'application/x-www-form-urlencoded',
-                      'Content-Length': data.length
-                  }
-                }
-                request.post(options, function(){
-                  console.log("posted to wall?")
-                } )
+            //       url:'http://graph.facebook.com/me/feed?access_token='+req.facebook.token+'&body='+messageStr, 
+            //       method: 'POST', 
+            //       headers: {
+            //           'Content-Type': 'application/x-www-form-urlencoded',
+            //           'Content-Length': data.length
+            //       }
+            //     }
+            //     request.post(options, function(){
+            //       console.log("posted to wall?")
+            //     } )
                    
 
-              }
-            ],function(){
-              //call back function which fires
-               console.log("async wall post completed action?")
-            })
+            //   }
+            // ],function(){
+            //   //call back function which fires
+            //    console.log("async wall post completed action?")
+            // })
 
             //pack return values into an object
             var returnObj = {
