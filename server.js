@@ -317,7 +317,7 @@ function show_me_culture(req, res){
             var url = 'https://www.facebook.com/dialog/oauth?client_id="531423360247136"&redirect_uri="/cultureme"&scope=publish_actions';
             request(url, function (error, response, body) {
 
-              console.log("async permission call", response);
+              console.log("async permission call");
 
               //can I parse new token out of body?
             })
@@ -455,6 +455,8 @@ app.get('/cultureme', show_me_culture);
 
 
 function postMessage(access_token, message, response) {
+
+  console.log("POST MESSAGE CALLED")
     // Specify the URL and query string parameters needed for the request
     var url = 'https://graph.facebook.com/me/feed';
     var params = {
