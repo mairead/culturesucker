@@ -316,17 +316,19 @@ function show_me_culture(req, res){
                   message: "this is a test post"
                 }
 
-               
+                var messageStr = qs.stringify(data)
+
+               //doesn't seem to do anything??
                 var options = {
 
-                  url:'http://graph.facebook.com/me/feed?access_token='+req.facebook.token, 
+                  url:'http://graph.facebook.com/me/feed?access_token='+req.facebook.token+'&message='+messageStr, 
                   method: 'POST', 
                   headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',
                             'Content-Length': data.length
                         }
                 }
-                request.post(options)
+                request.post(options )
                    console.log("posted to wall?")
 
               }
