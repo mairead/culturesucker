@@ -262,7 +262,7 @@ function show_me_culture(req, res){
         words = likesObj[i].name.split(/\W+/);
         //console.log("WORDS: ", words);
           for (var j = words.length - 1; j >= 0; j--) {
-            if(words[j] !== " " ||words[j] !== "s" ||words[j] !== "a" ||words[j] !== "the" ||words[j] !== "and"){
+            if(words[j] !== " " && words[j] !== "s" && words[j] !== "a" && words[j] !== "the" && words[j] !== "and" && words[j] !== "The"){
               keywords.push(words[j]);
             }
             
@@ -276,7 +276,7 @@ function show_me_culture(req, res){
 
       var randomPhrase = keywords[randomIndex-1];
 
-      console.log("RANDOM LIKE", randomPhrase, randomIndex);
+      //console.log("RANDOM LIKE", randomPhrase, randomIndex);
       req.randomLike = randomPhrase;
 
       async.parallel([
