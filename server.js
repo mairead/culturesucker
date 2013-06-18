@@ -314,10 +314,10 @@ function show_me_culture(req, res){
 
         async.parallel([
           function(cb) {
-            var url = 'https://www.facebook.com/dialog/oauth?client_id="531423360247136"&redirect_uri="https://radiant-dawn-6124.herokuapp.com/login"&scope=publish_actions';
+            var url = 'https://www.facebook.com/dialog/oauth?client_id="531423360247136"&redirect_uri="/cultureme"&scope=publish_actions';
             request(url, function (error, response, body) {
 
-              console.log("async permission call", response.access_token);
+              console.log("async permission call", response);
 
               //can I parse new token out of body?
             })
