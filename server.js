@@ -310,33 +310,17 @@ function show_me_culture(req, res){
             if(docsLength === 0){
               console.log("nothing returned")
             }
+       
 
 
-        // async.parallel([
-        //   function(cb) {
-        //     var url = 'https://www.facebook.com/dialog/oauth?client_id="531423360247136"&redirect_uri="/cultureme"&scope=publish_actions';
-        //     request(url, function (error, response, body) {
-
-        //       console.log("async permission call");
-
-        //       //can I parse new token out of body?
-        //     })
-        //   }
-        //   ],function(){console.log("called after getting token")
-
-        //     postMessage("CAACEdEose0cBAOrv1fZBgiavjwJAqhFZCPU6696WBp4HN2eVwOuoUpBR7mB6oCpJVvZApsqvqRxesCXwDG0V2jbF9SKALZBBoimAeetFdZCMKPQGYbJcg0xHdEdZCEhdFSMhjgAUGvbXUZB8AbTOediM1kX0DfesMgZD", "hello dolly!", res);
-        //   })
-
-//need to ask for permissions - make async call to get and then make post in callback?
-
-
-              
-                      //basic post 
+             //post a wall item?
+              async.parallel([
+                function(cb) {
 
                     var data = qs.stringify({
-                    //access_token: "CAACEdEose0cBAOrv1fZBgiavjwJAqhFZCPU6696WBp4HN2eVwOuoUpBR7mB6oCpJVvZApsqvqRxesCXwDG0V2jbF9SKALZBBoimAeetFdZCMKPQGYbJcg0xHdEdZCEhdFSMhjgAUGvbXUZB8AbTOediM1kX0DfesMgZD",
+                    //hardcoded access_token: "CAACEdEose0cBAOrv1fZBgiavjwJAqhFZCPU6696WBp4HN2eVwOuoUpBR7mB6oCpJVvZApsqvqRxesCXwDG0V2jbF9SKALZBBoimAeetFdZCMKPQGYbJcg0xHdEdZCEhdFSMhjgAUGvbXUZB8AbTOediM1kX0DfesMgZD",
                     access_token: req.facebook.token,
-                    message: "hello culture!"
+                    message: "<img src='" + imageUrl + "'>"
                     });
 
                         var options = {
@@ -349,8 +333,6 @@ function show_me_culture(req, res){
                             'Content-Length': data.length
                         }
                     };
-
-//scope=publish_stream
                     console.log(data, options)
                     var postreq = https.request(options, function(res) {
                         res.setEncoding('utf8');
@@ -370,50 +352,10 @@ function show_me_culture(req, res){
                     postreq.end();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-//async post not working
-            // //post a wall item?
-            // async.parallel([
-            //   function(cb) {
-
-
-            //     var data = {
-            //       message: "this is a test post"
-            //     }
-
-            //     var messageStr = qs.stringify(data)
-            //     //var messageStr = "this is a test post";
-            //    //doesn't seem to do anything??
-            //     var options = {
-
-            //       url:'http://graph.facebook.com/me/feed?access_token='+req.facebook.token+'&body='+messageStr, 
-            //       method: 'POST', 
-            //       headers: {
-            //           'Content-Type': 'application/x-www-form-urlencoded',
-            //           'Content-Length': data.length
-            //       }
-            //     }
-            //     request.post(options, function(){
-            //       console.log("posted to wall?")
-            //     } )
-                   
-
-            //   }
-            // ],function(){
-            //   //call back function which fires
-            //    console.log("async wall post completed action?")
-            // })
+       ],function(){
+                //call back function which fires
+                 console.log("async wall post completed action?")
+              })
 
             //pack return values into an object
             var returnObj = {
@@ -444,44 +386,3 @@ app.post('/culturequery', display_keyword_form);
 app.get('/login', facebook_login);
 app.get('/herokuauth', handle_facebook_request);
 app.get('/cultureme', show_me_culture);
-
-
-
-
-
-
-
-
-
-
-
-function postMessage(access_token, message, response) {
-
-  console.log("POST MESSAGE CALLED")
-    // Specify the URL and query string parameters needed for the request
-    var url = 'https://graph.facebook.com/me/feed';
-    var params = {
-        access_token: access_token,
-        message: message
-    };
-
-  // Send the request
-    request.post({url: url, qs: params}, function(err, resp, body) {
-      
-      // Handle any errors that occur
-      if (err) return console.error("Error occured: ", err);
-      body = JSON.parse(body);
-      if (body.error) return console.error("Error returned from facebook: ", body.error);
-
-      // Generate output
-      var output = '<p>Message has been posted to your feed. Here is the id generated:</p>';
-      output += '<pre>' + JSON.stringify(body, null, '\t') + '</pre>';
-      
-      // Send output as the response
-      response.writeHeader(200, {'Content-Type': 'text/html'});
-      response.end(output);
-    });
-
-}
-
-//exports.postMessage = postMessage;
