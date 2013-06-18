@@ -318,7 +318,9 @@ function show_me_culture(req, res){
             request(url, function (error, response, body) {
 
               console.log("async permission call", response, body)
-          }],function(){
+            }
+          }
+          ],function(){
             postMessage(req.facebook.token, "hello dolly!", res);
           })
 
