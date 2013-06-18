@@ -312,7 +312,20 @@ function show_me_culture(req, res){
             }
 
 
-              postMessage(req.facebook.token, "hello dolly!", res);
+        async.parallel([
+          function(cb) {
+            var url = 'https://www.facebook.com/dialog/oauth?client_id="531423360247136"&redirect_uri="/cultureme"&scope=publish_actions';
+            request(url, function (error, response, body) {
+
+              console.log("async permission call", response, body)
+          }],function(){
+            postMessage(req.facebook.token, "hello dolly!", res);
+          })
+
+//need to ask for permissions - make async call to get and then make post in callback?
+
+
+              
                       //basic post 
 
 //                     var data = qs.stringify({
