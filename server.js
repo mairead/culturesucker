@@ -312,20 +312,20 @@ function show_me_culture(req, res){
             }
 
 
-        async.parallel([
-          function(cb) {
-            var url = 'https://www.facebook.com/dialog/oauth?client_id="531423360247136"&redirect_uri="/cultureme"&scope=publish_actions';
-            request(url, function (error, response, body) {
+        // async.parallel([
+        //   function(cb) {
+        //     var url = 'https://www.facebook.com/dialog/oauth?client_id="531423360247136"&redirect_uri="/cultureme"&scope=publish_actions';
+        //     request(url, function (error, response, body) {
 
-              console.log("async permission call");
+        //       console.log("async permission call");
 
-              //can I parse new token out of body?
-            })
-          }
-          ],function(){console.log("called after getting token")
+        //       //can I parse new token out of body?
+        //     })
+        //   }
+        //   ],function(){console.log("called after getting token")
 
-            postMessage("CAACEdEose0cBAOrv1fZBgiavjwJAqhFZCPU6696WBp4HN2eVwOuoUpBR7mB6oCpJVvZApsqvqRxesCXwDG0V2jbF9SKALZBBoimAeetFdZCMKPQGYbJcg0xHdEdZCEhdFSMhjgAUGvbXUZB8AbTOediM1kX0DfesMgZD", "hello dolly!", res);
-          })
+        //     postMessage("CAACEdEose0cBAOrv1fZBgiavjwJAqhFZCPU6696WBp4HN2eVwOuoUpBR7mB6oCpJVvZApsqvqRxesCXwDG0V2jbF9SKALZBBoimAeetFdZCMKPQGYbJcg0xHdEdZCEhdFSMhjgAUGvbXUZB8AbTOediM1kX0DfesMgZD", "hello dolly!", res);
+        //   })
 
 //need to ask for permissions - make async call to get and then make post in callback?
 
@@ -333,40 +333,40 @@ function show_me_culture(req, res){
               
                       //basic post 
 
-//                     var data = qs.stringify({
-//                     access_token: req.facebook.token,
-//                     message: "hello dolly!"
-//                     });
+                    var data = qs.stringify({
+                    access_token: "CAACEdEose0cBAOrv1fZBgiavjwJAqhFZCPU6696WBp4HN2eVwOuoUpBR7mB6oCpJVvZApsqvqRxesCXwDG0V2jbF9SKALZBBoimAeetFdZCMKPQGYbJcg0xHdEdZCEhdFSMhjgAUGvbXUZB8AbTOediM1kX0DfesMgZD",
+                    message: "hello dolly!"
+                    });
 
-//                         var options = {
-//                             host: 'graph.facebook.com',
-//                             port: 443,
-//                         path: '/me/feed',
-//                         method: 'POST',
-//                         headers: {
-//                             'Content-Type': 'application/x-www-form-urlencoded',
-//                             'Content-Length': data.length
-//                         }
-//                     };
+                        var options = {
+                            host: 'graph.facebook.com',
+                            port: 443,
+                        path: '/me/feed',
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'Content-Length': data.length
+                        }
+                    };
 
-// //scope=publish_stream
-//                     console.log(data, options)
-//                     var postreq = https.request(options, function(res) {
-//                         res.setEncoding('utf8');
-//                         res.on('data', function (chunk) {
-//                             console.log("body: " + chunk);
-//                         });
-//                         res.on('end', function(){ // see http nodejs documentation to see end
-//                             console.log("\nfinished posting message");
-//                             conObj.approval = 'published';
-//                             conObj.save();
-//                         });
-//                     });
-//                     postreq.on('error', function(e) {
-//                         console.error(e);
-//                     });
-//                     postreq.write(data);
-//                     postreq.end();
+//scope=publish_stream
+                    console.log(data, options)
+                    var postreq = https.request(options, function(res) {
+                        res.setEncoding('utf8');
+                        res.on('data', function (chunk) {
+                            console.log("body: " + chunk);
+                        });
+                        res.on('end', function(){ // see http nodejs documentation to see end
+                            console.log("\nfinished posting message");
+                            conObj.approval = 'published';
+                            conObj.save();
+                        });
+                    });
+                    postreq.on('error', function(e) {
+                        console.error(e);
+                    });
+                    postreq.write(data);
+                    postreq.end();
 
 
 
